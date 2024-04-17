@@ -11,3 +11,8 @@ dependencies:
   flame: ^1.17.0
   flutter:
     sdk: flutter
+
+flutter:
+  assets:
+    - assets/images/ff_logga.png
+    - assets/images/fire.png
