@@ -1,0 +1,2 @@
+/Users/johanfallberg/Code/flame/android/app/.cxx/Debug/3l392w47/x86/CMakeFiles/edit_cache.dir
+/Users/johanfallberg/Code/flame/android/app/.cxx/Debug/3l392w47/x86/CMakeFiles/rebuild_cache.dir

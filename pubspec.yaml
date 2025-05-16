@@ -8,11 +8,22 @@ environment:
   flutter: ^3.13.0
 
 dependencies:
-  flame: ^1.17.0
+  flame: ^1.28.1
+  flame_audio: ^2.11.5
   flutter:
     sdk: flutter
+  shared_preferences: ^2.5.3
 
 flutter:
   assets:
     - assets/images/ff_logga.png
+    - assets/images/ff_ball.png
     - assets/images/fire.png
+    - assets/images/coin.png
+    - assets/images/left_pressed.png
+    - assets/images/left_default.png
+    - assets/images/right_pressed.png
+    - assets/images/right_default.png
+
+    - assets/audio/coin_pickup.mp3
+    - assets/audio/background.mp3
