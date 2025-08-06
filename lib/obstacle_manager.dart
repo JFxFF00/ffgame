@@ -62,9 +62,9 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
     var xPosition = 0.0;
     final startChance = -2.1;
     final addedChance = 0.4 * game.speed;
-    print('Added chance: ' + addedChance.toString());
+    print('Added chance: ' + addedChance.toStringAsFixed(2));
     double chance = startChance + addedChance;
-    print('chance ' + chance.toString());
+    print('Chance ' + chance.toStringAsFixed(2));
     // final a = 1 - GameBalance.obstacleDoubleChanceBase;
     // var chance = 1 - a * pow(e, -game.speed / 10);
     // print('Funy number: ' + pow(e, -game.speed / 10).toString());

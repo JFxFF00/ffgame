@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:ffgame/game_balance.dart';
 import 'package:ffgame/helpers.dart';
+import 'package:ffgame/high_score.dart';
 import 'package:ffgame/image_holder.dart';
 import 'package:ffgame/input_handler.dart';
 import 'package:ffgame/obstacle_manager.dart';
@@ -96,6 +97,9 @@ class FFGame extends FlameGame
     FlameAudio.bgm.stop();
     final newHighscore = await setHighScore(score);
     highscoreText.text = 'Highscore: ${scoreWithTitle(newHighscore)}';
+    // final highscores = await HighScoreManager().getHighScores();
+    // print(highscores);
+    // HighScoreManager().addHighScore(HighScoreEntry(name: 'John', score: score));
 
     Future.delayed(
       Duration(seconds: 3),

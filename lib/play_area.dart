@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ffgame/game.dart';
 import 'package:ffgame/helpers.dart';
+import 'package:ffgame/parallax.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -23,6 +24,31 @@ class PlayArea extends RectangleComponent
       size: Vector2(game.size.x, game.size.y),
       position: Vector2(0, game.bottomLeft.y + game.groundPosition),
     ));
+    add(ParallaxController(
+      eachSize: Vector2(1200, 600),
+      sprite: Sprite(game.imageHolder.sky),
+      speed: 0.005,
+      yPosition: game.topLeft.y + 420,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(1024, 512),
+      sprite: Sprite(game.imageHolder.buildings2),
+      speed: 0.06,
+      yPosition: game.topLeft.y + 540,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(1200, 600),
+      sprite: Sprite(game.imageHolder.buildings1),
+      speed: 0.09,
+      yPosition: game.topLeft.y + 420,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(1024, 512),
+      sprite: Sprite(game.imageHolder.grass),
+      speed: 1,
+      yPosition: game.bottomLeft.y + game.groundPosition - 140,
+    ));
+
     return super.onLoad();
   }
 

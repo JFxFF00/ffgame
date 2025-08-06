@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';

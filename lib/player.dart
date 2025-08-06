@@ -65,7 +65,7 @@ class Player extends SpriteComponent
       _yVelocity = 0;
     }
 
-    final baseRotationSpeed = game.speed * 0.2;
+    final baseRotationSpeed = game.speed * 0.4;
     final differansen = _rotationSpeed - baseRotationSpeed;
     final shifterRotation = (differansen * 0.03).abs();
     _rotationSpeed = _rotationSpeed.moveTowardsValue(
