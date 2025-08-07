@@ -66,7 +66,7 @@ class FFGame extends FlameGame
     highScore = await getHighScore();
     highscoreText.text = 'Highscore: ${scoreWithTitle(highScore)}';
     startPosition = Vector2(
-        centerLeft.x + 100, size.y - groundPosition - player.size.y / 2);
+        centerLeft.x + 200, size.y - groundPosition - player.size.y / 2);
     player.position = startPosition;
     world.add(InputHandler(this));
     var obs = obstacleManager
