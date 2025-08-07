@@ -29,14 +29,14 @@ class ParallaxController extends PositionComponent
     position.x = xPosition;
     double maxLoops = 25;
     double pos = 0;
-    while (maxLoops > 0 && pos < game.size.x + (eachSize.x * 3)) {
+    while (maxLoops > 0 && pos < game.size.x + eachSize.x) {
       add(Parallax(
         size: eachSize,
         sprite: sprite,
         speed: speed,
         position: Vector2(pos, 0),
       )..opacity = opacity);
-      pos += eachSize.x - 2;
+      pos += eachSize.x;
       maxLoops--;
     }
 
@@ -58,7 +58,7 @@ class Parallax extends SpriteComponent with HasGameReference<FFGame> {
   void update(double dt) {
     position.x -= speed * game.speed;
     if (absolutePosition.x < -size.x) {
-      position.x = game.size.x + size.x * 2;
+      position.x = game.size.x + size.x + absolutePosition.x;
     }
   }
 }
