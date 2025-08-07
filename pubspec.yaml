@@ -30,6 +30,7 @@ flutter:
     - assets/images/sky.jpg
     - assets/images/buildings1.png
     - assets/images/buildings2.png
+    - assets/images/buildings3.png
 
     - assets/audio/coin_pickup.mp3
     - assets/audio/background.mp3

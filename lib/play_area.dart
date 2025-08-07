@@ -19,34 +19,69 @@ class PlayArea extends RectangleComponent
   @override
   FutureOr<void> onLoad() {
     size = Vector2(game.size.x, game.size.y);
-    add(RectangleComponent(
-      paint: Paint()..color = Color.fromARGB(255, 28, 21, 52),
-      size: Vector2(game.size.x, game.size.y),
-      position: Vector2(0, game.bottomLeft.y + game.groundPosition),
-    ));
     add(ParallaxController(
-      eachSize: Vector2(1200, 600),
+      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
+          game.size.y - game.groundPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,
-      yPosition: game.topLeft.y + 420,
+      yPosition: 0,
     ));
     add(ParallaxController(
-      eachSize: Vector2(1024, 512),
-      sprite: Sprite(game.imageHolder.buildings2),
-      speed: 0.06,
-      yPosition: game.topLeft.y + 540,
-    ));
-    add(ParallaxController(
-      eachSize: Vector2(1200, 600),
+      eachSize: Vector2(400, 200),
       sprite: Sprite(game.imageHolder.buildings1),
-      speed: 0.09,
-      yPosition: game.topLeft.y + 420,
+      speed: 0.04,
+      yPosition: game.size.y - 200 - game.groundPosition,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
+          game.size.y - game.groundPosition),
+      sprite: Sprite(game.imageHolder.sky),
+      speed: 0.005,
+      yPosition: 0,
+      opacity: 0.4,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(600, 300),
+      sprite: Sprite(game.imageHolder.buildings1),
+      speed: 0.06,
+      xPosition: 100,
+      yPosition: game.size.y - 300 - game.groundPosition,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
+          game.size.y - game.groundPosition),
+      sprite: Sprite(game.imageHolder.sky),
+      speed: 0.005,
+      yPosition: 0,
+      opacity: 0.4,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(1000, 500),
+      sprite: Sprite(game.imageHolder.buildings1),
+      speed: 0.08,
+      xPosition: -100,
+      yPosition: game.size.y - 500 - game.groundPosition,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
+          game.size.y - game.groundPosition),
+      sprite: Sprite(game.imageHolder.sky),
+      speed: 0.005,
+      yPosition: 0,
+      opacity: 0.4,
+    ));
+    add(ParallaxController(
+      eachSize: Vector2(1400, 700),
+      sprite: Sprite(game.imageHolder.buildings1),
+      speed: 0.14,
+      xPosition: 300,
+      yPosition: game.size.y - 700 - game.groundPosition,
     ));
     add(ParallaxController(
       eachSize: Vector2(1024, 512),
       sprite: Sprite(game.imageHolder.grass),
       speed: 1,
-      yPosition: game.bottomLeft.y + game.groundPosition - 140,
+      yPosition: game.size.y - game.groundPosition - 130,
     ));
 
     return super.onLoad();

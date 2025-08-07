@@ -18,7 +18,6 @@ class ImageHolder {
   late Image grass;
   late Image sky;
   late Image buildings1;
-  late Image buildings2;
 
   Future<void> load() async {
     // characterImage = await Flame.images.load('ff_logga.png');
@@ -33,6 +32,5 @@ class ImageHolder {
     grass = await Flame.images.load('grass.png');
     sky = await Flame.images.load('sky.jpg');
     buildings1 = await Flame.images.load('buildings1.png');
-    buildings2 = await Flame.images.load('buildings2.png');
   }
 }

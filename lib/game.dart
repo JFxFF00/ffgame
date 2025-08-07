@@ -28,7 +28,7 @@ class FFGame extends FlameGame
   double duration = 0;
   double score = 0;
   double highScore = 0;
-  double get groundPosition => size.y * 0.2;
+  double get groundPosition => size.y * 0.35;
   double speed = GameBalance.gameSpeedBase;
 
   late Vector2 startPosition;
@@ -62,24 +62,24 @@ class FFGame extends FlameGame
     // } catch (e) {
     //   print('Error playing background music: $e');
     // }
+    camera.viewfinder.anchor = Anchor.topLeft;
     highScore = await getHighScore();
     highscoreText.text = 'Highscore: ${scoreWithTitle(highScore)}';
-
-    startPosition =
-        Vector2(centerLeft.x + 100, groundPosition - (player.size.y / 2));
+    startPosition = Vector2(
+        centerLeft.x + 100, size.y - groundPosition - player.size.y / 2);
     player.position = startPosition;
-    world.add(player);
     world.add(InputHandler(this));
     var obs = obstacleManager
-      ..position = Vector2(bottomRight.x, groundPosition);
+      ..position = Vector2(bottomRight.x, size.y - groundPosition);
+    world.add(PlayArea());
+    world.add(player);
     world.add(obs);
-    add(PlayArea());
     world.add(scoreText);
-    scoreText.position = Vector2(0, groundPosition + size.y * 0.15);
+    scoreText.position = Vector2(size.x / 2, size.y - groundPosition / 2);
     world.add(highscoreText);
-    highscoreText.position = topLeft + Vector2(20, 40);
+    highscoreText.position = Vector2(20, 40);
     world.add(fps);
-    fps.position = topRight + Vector2(-20, 40);
+    fps.position = Vector2(-20, 40);
 
     if (!kIsWeb) {
       world

@@ -11,17 +11,22 @@ class ParallaxController extends PositionComponent
   final Sprite sprite;
   final double speed;
   final double yPosition;
+  final double xPosition;
+  final double opacity;
 
   ParallaxController({
     required this.eachSize,
     required this.sprite,
     required this.speed,
     required this.yPosition,
+    this.xPosition = 0,
+    this.opacity = 1.0,
   });
 
   @override
   FutureOr<void> onLoad() {
     position.y = yPosition;
+    position.x = xPosition;
     double maxLoops = 25;
     double pos = 0;
     while (maxLoops > 0 && pos < game.size.x + (eachSize.x * 3)) {
@@ -30,7 +35,7 @@ class ParallaxController extends PositionComponent
         sprite: sprite,
         speed: speed,
         position: Vector2(pos, 0),
-      ));
+      )..opacity = opacity);
       pos += eachSize.x - 2;
       maxLoops--;
     }
