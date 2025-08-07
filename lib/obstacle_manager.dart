@@ -53,43 +53,49 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
     }
   }
 
+  bool _kurva(int x) {
+    ///todo m is at least 1
+    final m = game.speed - GameBalance.gameSpeedBase;
+    print('m ' + m.toStringAsFixed(2));
+
+    final s = 2 / (2 * m + 1);
+    // print('s ' + s.toStringAsFixed(2));
+
+    final p = m;
+    // print('p ' + p.toStringAsFixed(2));
+
+    if (x < p) return true;
+
+    double probability = pow(e, -s * (x - p)).toDouble();
+    // print('probability ' + probability.toStringAsFixed(2));
+
+    return randomWithChance(probability);
+  }
+
   void _spawnObstacles() {
     var firstObstacle = Obstacle();
     var previousObstacle = firstObstacle;
     var allObstacles = [firstObstacle];
-    var keepLooping = true;
-    var loops = 1;
     var xPosition = 0.0;
-    final startChance = -2.1;
-    final addedChance = 0.4 * game.speed;
-    print('Added chance: ' + addedChance.toStringAsFixed(2));
-    double chance = startChance + addedChance;
-    print('Chance ' + chance.toStringAsFixed(2));
-    // final a = 1 - GameBalance.obstacleDoubleChanceBase;
-    // var chance = 1 - a * pow(e, -game.speed / 10);
-    // print('Funy number: ' + pow(e, -game.speed / 10).toString());
 
-    // print('Initial Chance ' + chance.toString());
-    // print('gamespeed ' + game.speed.toString());
+    var keepLooping = true;
+    var loops = 0;
+
     while (keepLooping) {
-      if (randomWithChance(chance)) {
-        final obstacle = Obstacle();
-        xPosition += previousObstacle.size.x * 0.7;
-        obstacle.x = xPosition;
-        allObstacles.add(obstacle);
-
-        chance *= 0.7;
-        // print('Updated chance (loop $loops): ' + chance.toString());
-
-        previousObstacle = obstacle;
-        loops++;
-      } else {
-        keepLooping = false;
-      }
-
-      obstacles.addAll(allObstacles);
-      addAll(allObstacles);
+      loops++;
+      keepLooping = _kurva(loops);
     }
+
+    // print('loops ' + loops.toString());
+
+    for (int i = 0; i < loops; i++) {
+      final obstacle = Obstacle();
+      xPosition += previousObstacle.size.x * 0.7;
+      obstacle.x = xPosition;
+      allObstacles.add(obstacle);
+    }
+
+    addAll(allObstacles);
   }
 
   void reset() {
