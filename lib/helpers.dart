@@ -3,7 +3,15 @@ import 'dart:ui';
 import 'package:ffgame/enums.dart';
 import 'package:ffgame/player.dart';
 import 'package:flame/game.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+double sinCurve(
+  double time, {
+  double amplitude = 1,
+  double minimum = 1,
+  double frequency = 1,
+}) {
+  return ((sin(time * frequency) + 1 + minimum) * amplitude);
+}
 
 double radiansFromDegrees(double degrees) {
   return degrees * (pi / 180);
@@ -27,21 +35,6 @@ bool randomWithChance(double probability) {
 }
 
 double get groundYPosition => Player().height / 2 + 30;
-
-Future<double> getHighScore() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getDouble('high_score') ?? 0;
-}
-
-Future<double> setHighScore(double score) async {
-  final prefs = await SharedPreferences.getInstance();
-  final currentHighScore = prefs.getDouble('high_score') ?? 0;
-  if (score > currentHighScore) {
-    prefs.setDouble('high_score', score);
-    return score;
-  }
-  return currentHighScore;
-}
 
 String scoreWithTitle(double score) {
   String title = LoyaltyLevels.fromScore(score).name;

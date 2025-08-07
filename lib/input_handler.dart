@@ -9,7 +9,11 @@ class InputHandler extends KeyboardListenerComponent
       : super(
           keyDown: {
             LogicalKeyboardKey.space: (_) {
-              game.player.jump();
+              if (game.gameState == GameState.playing) {
+                game.player.jump();
+              } else if (game.gameState == GameState.scoreScreen) {
+                game.restart();
+              }
               return true;
             },
             LogicalKeyboardKey.arrowLeft: (_) {
@@ -40,4 +44,8 @@ class InputHandler extends KeyboardListenerComponent
             },
           },
         );
+
+  void focus() {
+    this.onLoad();
+  }
 }

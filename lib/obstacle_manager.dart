@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ffgame/coin.dart';
+import 'package:ffgame/enums.dart';
 import 'package:ffgame/game.dart';
 import 'package:ffgame/game_balance.dart';
 import 'package:ffgame/helpers.dart';
@@ -34,6 +35,7 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   @override
   void update(double dt) {
     super.update(dt);
+    if (game.gameState == GameState.scoreScreen) return;
 
     delay -= 1;
     coinDelay -= 1;

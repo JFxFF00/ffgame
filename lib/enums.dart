@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum Direction {
   up,
   down,
@@ -37,12 +39,47 @@ enum LoyaltyLevels {
     }
   }
 
+  Color get color {
+    switch (this) {
+      case come:
+        return Colors.red;
+      case LoyaltyLevels.stay:
+      case LoyaltyLevels.share:
+      case LoyaltyLevels.dream:
+      case LoyaltyLevels.takeOff:
+      case LoyaltyLevels.fly:
+        return Colors.blue;
+    }
+  }
+
+  double get threshold {
+    switch (this) {
+      case come:
+        return 0;
+      case stay:
+        return 100;
+      case share:
+        return 250;
+      case dream:
+        return 500;
+      case takeOff:
+        return 1000;
+      case fly:
+        return 1500;
+    }
+  }
+
   static LoyaltyLevels fromScore(score) {
-    if (score > 1500) return fly;
-    if (score > 1000) return takeOff;
-    if (score > 500) return dream;
-    if (score > 250) return share;
-    if (score > 100) return stay;
+    if (score > fly.threshold) return fly;
+    if (score > takeOff.threshold) return takeOff;
+    if (score > dream.threshold) return dream;
+    if (score > share.threshold) return share;
+    if (score > stay.threshold) return stay;
     return come;
   }
+}
+
+enum GameState {
+  playing,
+  scoreScreen,
 }

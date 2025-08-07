@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ffgame/game.dart';
-import 'package:ffgame/helpers.dart';
 import 'package:ffgame/parallax.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
