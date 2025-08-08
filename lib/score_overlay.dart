@@ -13,36 +13,56 @@ class ScoreOverlay extends StatefulWidget {
   State<ScoreOverlay> createState() => _ScoreOverlayState();
 }
 
-class _ScoreOverlayState extends State<ScoreOverlay> {
+class _ScoreOverlayState extends State<ScoreOverlay>
+    with TickerProviderStateMixin {
   String name = '';
   TextEditingController nameController = TextEditingController();
+  late SharedPreferences preferences;
+  AnimationController? animationController;
 
   @override
   void initState() {
-    SharedPreferences.getInstance().then((preferences) {
-      name = preferences.getString('name') ?? '';
-      nameController.text = name;
-    });
+    init();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+      lowerBound: 0.9,
+      upperBound: 1.1,
+      value: 1,
+    );
+    animationController?.repeat();
     super.initState();
+  }
+
+  Future<void> init() async {
+    preferences = await SharedPreferences.getInstance();
+    name = preferences.getString('name') ?? '';
+    nameController.text = name;
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Colors.black.withAlpha(60),
-          child: Row(
-            children: [
-              Expanded(child: SizedBox()),
-              Expanded(child: _runScore(widget.game)),
-              Expanded(child: _highScores(widget.game)),
-            ],
-          ),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.black.withAlpha(60),
+        child: Row(
+          children: [
+            Expanded(child: SizedBox()),
+            Expanded(child: _runScore(widget.game)),
+            Expanded(child: _highScores(widget.game)),
+          ],
         ),
       ),
+    );
+  }
+
+  BoxDecoration _boxDecoration() {
+    return BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.black.withAlpha(180),
     );
   }
 
@@ -59,20 +79,19 @@ class _ScoreOverlayState extends State<ScoreOverlay> {
         width: 240,
         margin: EdgeInsets.all(40),
         padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.black.withAlpha(180),
-        ),
+        decoration: _boxDecoration(),
         child: Column(
           spacing: 4,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('High Scores',
-                style: style.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
-            Divider(color: Colors.white),
+            Text(
+              'High Scores',
+              style: style.copyWith(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Divider(color: Colors.white54),
             for (int index = 0; index < highScores.length; index++)
               _score(highScores[index], index),
           ],
@@ -105,91 +124,103 @@ class _ScoreOverlayState extends State<ScoreOverlay> {
     final scoreManager = game.scoreManager;
     final LoyaltyLevels loyaltyLevel =
         LoyaltyLevels.fromScore(scoreManager.score);
+    final double width = 280;
 
-    return Container(
-      width: 240,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.black.withAlpha(180),
-      ),
-      child: Column(
-        spacing: 12,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Game over',
-            style: style.copyWith(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: width,
+          padding: EdgeInsets.all(20),
+          decoration: _boxDecoration(),
+          child: Column(
+            spacing: 12,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Coins',
-                style: style,
+                'Game over',
+                style:
+                    style.copyWith(fontSize: 32, fontWeight: FontWeight.bold),
               ),
-              Text(
-                '${scoreManager.scoreFromCoins.round()}',
-                style: style,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Coins',
+                    style: style,
+                  ),
+                  Text(
+                    '${scoreManager.scoreFromCoins.round()}',
+                    style: style,
+                  ),
+                ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Distance',
+                    style: style,
+                  ),
+                  Text(
+                    '${scoreManager.scoreFromDistance.round()}',
+                    style: style,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total',
+                    style: style.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${scoreManager.score.round()}',
+                    style: style.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Your rating!',
+                    style: style,
+                  ),
+                  Text(
+                    '[${(loyaltyLevel.name)}]',
+                    style: style.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              _loyaltyLevelProgress(),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Distance',
-                style: style,
-              ),
-              Text(
-                '${scoreManager.scoreFromDistance.round()}',
-                style: style,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Total',
-                style: style.copyWith(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '${scoreManager.score.round()}',
-                style: style.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Your rating!',
-                style: style,
-              ),
-              Text(
-                '[${(loyaltyLevel.name)}]',
-                style: style.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          _loyaltyLevelProgress(),
-          SizedBox(height: 20),
-          if (game.scoreManager.canSubmit)
-            Row(
+        ),
+        if (game.scoreManager.canSubmit)
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width,
+            padding: EdgeInsets.all(20),
+            decoration: _boxDecoration(),
+            child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: nameController,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                    // style: TextStyle(
+                    //   color: Colors
+                    // ),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      hintText: 'Name...',
+                      hintStyle: TextStyle(color: Colors.black45),
                       fillColor: Colors.white,
+                      filled: true,
                     ),
                     onChanged: (value) {
                       name = value;
@@ -197,39 +228,40 @@ class _ScoreOverlayState extends State<ScoreOverlay> {
                   ),
                 ),
                 SizedBox(width: 12),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateColor.resolveWith(
-                      (states) {
-                        if (states.contains(WidgetState.pressed)) {
-                          return Colors.white.withAlpha(120);
-                        }
-                        return Colors.white;
-                      },
+                SizedBox(
+                  width: 80,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.inversePrimary,
                     ),
+                    onPressed: () async {
+                      setState(() {
+                        game.scoreManager.canSubmit = false;
+                      });
+                      SharedPreferences.getInstance().then((preferences) async {
+                        await preferences.setString('name', name);
+                      });
+                      await game.scoreManager.addHighScore(
+                        HighScoreEntry(
+                          name: name,
+                          score: game.scoreManager.score,
+                        ),
+                      );
+                      focusNode.requestFocus();
+                    },
+                    child: Text('Submit'),
                   ),
-                  onPressed: () async {
-                    print('submit');
-                    setState(() {
-                      game.scoreManager.canSubmit = false;
-                    });
-                    SharedPreferences.getInstance().then((preferences) async {
-                      await preferences.setString('name', name);
-                    });
-                    await game.scoreManager.addHighScore(
-                      HighScoreEntry(
-                        name: name,
-                        score: game.scoreManager.score,
-                      ),
-                    );
-                    focusNode.requestFocus();
-                  },
-                  child: Text('Submit'),
                 ),
               ],
             ),
-        ],
-      ),
+          ),
+        SizedBox(height: 8),
+        Text(
+          'Press space to restart',
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 

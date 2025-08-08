@@ -18,8 +18,6 @@ import 'package:flutter/foundation.dart';
 
 class FFGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
-  FFGame() : super();
-
   GameState gameState = GameState.playing;
   ImageHolder imageHolder = ImageHolder();
   TextComponent scoreText = TextComponent(anchor: Anchor.center);

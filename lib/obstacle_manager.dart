@@ -75,9 +75,8 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   }
 
   void _spawnObstacles() {
-    var firstObstacle = Obstacle();
-    var previousObstacle = firstObstacle;
-    var allObstacles = [firstObstacle];
+    Obstacle? previousObstacle;
+    var allObstacles = <Obstacle>[];
     var xPosition = 0.0;
 
     var keepLooping = true;
@@ -92,8 +91,11 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
 
     for (int i = 0; i < loops; i++) {
       final obstacle = Obstacle();
-      xPosition += previousObstacle.size.x * 0.7;
+      if (previousObstacle != null) {
+        xPosition += previousObstacle.size.x * 0.7;
+      }
       obstacle.x = xPosition;
+      previousObstacle = obstacle;
       allObstacles.add(obstacle);
     }
 
