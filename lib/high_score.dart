@@ -31,7 +31,7 @@ class ScoreManager {
 
   Future<void> getHighScores() async {
     final response = await http.get(
-      Uri.parse('http://rpi.memention.net/doc/johans_highscore.json'),
+      Uri.parse('https://rpi.memention.net/doc/johans_highscore.json'),
     );
 
     final body = jsonDecode(response.body) as List<dynamic>;
@@ -53,7 +53,7 @@ class ScoreManager {
     print('Body: $body');
 
     await http.post(
-      Uri.parse('http://rpi.memention.net/doc/johans_highscore.json'),
+      Uri.parse('https://rpi.memention.net/doc/johans_highscore.json'),
       body: body,
     );
     await getHighScores();
@@ -88,7 +88,7 @@ class HighScoreEntry {
 class TitleText extends TextComponent with HasGameReference<FFGame> {
   TitleText()
       : super(
-          text: 'Press space to restart',
+          text: 'Press "R" to restart',
           size: Vector2(100, 100),
         );
 

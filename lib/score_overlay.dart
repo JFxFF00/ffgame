@@ -19,6 +19,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   TextEditingController nameController = TextEditingController();
   late SharedPreferences preferences;
   AnimationController? animationController;
+  FocusNode nameFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -30,8 +31,15 @@ class _ScoreOverlayState extends State<ScoreOverlay>
       upperBound: 1.1,
       value: 1,
     );
+    nameFocusNode.addListener(_handleFocus);
     animationController?.repeat();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameFocusNode.removeListener(_handleFocus);
+    super.dispose();
   }
 
   Future<void> init() async {
@@ -211,6 +219,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
               children: [
                 Expanded(
                   child: TextField(
+                    focusNode: nameFocusNode,
                     controller: nameController,
                     // style: TextStyle(
                     //   color: Colors
@@ -258,7 +267,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           ),
         SizedBox(height: 8),
         Text(
-          'Press space to restart',
+          'Press "R" to restart',
           style: TextStyle(color: Colors.white),
         ),
       ],
@@ -294,5 +303,11 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           ),
       ],
     );
+  }
+
+  void _handleFocus() {
+    if (!nameFocusNode.hasFocus) {
+      focusNode.requestFocus();
+    }
   }
 }
