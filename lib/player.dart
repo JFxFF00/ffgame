@@ -16,12 +16,13 @@ class Player extends SpriteComponent
           children: [CircleHitbox()],
         );
 
+  static const double jumpForce = 800;
   Stopwatch timer = Stopwatch();
   final maxTime = Duration(milliseconds: 200);
 
   double _yVelocity = 0;
   double _xVelocity = 0;
-  double _gravity = .5;
+  double _gravity = 50;
 
   double _rotationSpeed = 0;
 
@@ -40,8 +41,8 @@ class Player extends SpriteComponent
 
   @override
   void update(double dt) {
-    y += _yVelocity;
-    x += _xVelocity;
+    y += _yVelocity * dt;
+    x += _xVelocity * dt;
 
     _updateState();
 
@@ -54,18 +55,13 @@ class Player extends SpriteComponent
 
     if (!state.isGrounded) {
       _yVelocity += _gravity;
-      framesPerJump++;
     }
 
     if (state.isGrounded) {
-      if (framesPerJump > 0) {
-        framesPerJump = 0;
-      }
-
       _yVelocity = 0;
     }
 
-    final baseRotationSpeed = game.speed * 0.4;
+    final baseRotationSpeed = game.speed * 0.4 * dt;
     final differansen = _rotationSpeed - baseRotationSpeed;
     final shifterRotation = (differansen * 0.03).abs();
     _rotationSpeed = _rotationSpeed.moveTowardsValue(
@@ -74,9 +70,9 @@ class Player extends SpriteComponent
     );
 
     if (_xVelocity > 0) {
-      _rotationSpeed += _xVelocity * 0.08;
+      _rotationSpeed += _xVelocity * 0.001;
     } else if (_xVelocity < 0) {
-      _rotationSpeed += _xVelocity * 0.02;
+      _rotationSpeed += _xVelocity * 0.001;
     }
 
     angle += radiansFromDegrees(_rotationSpeed);
@@ -84,7 +80,7 @@ class Player extends SpriteComponent
     super.update(dt);
   }
 
-  void jump({double speed = 7}) {
+  void jump({double speed = jumpForce}) {
     if (state.isGrounded) {
       timer.reset();
       _yVelocity = -speed;
@@ -95,7 +91,7 @@ class Player extends SpriteComponent
 
   void move({
     Direction direction = Direction.left,
-    double speed = 1.7,
+    double speed = 150,
   }) {
     double modifiedSpeed = speed;
     if (!state.isGrounded) {

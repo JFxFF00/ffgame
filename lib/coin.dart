@@ -39,7 +39,7 @@ class Coin extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
-    x -= game.speed;
+    x -= game.speed * dt;
     y += _yVelocity;
 
     if (shouldDie) removeFromParent();

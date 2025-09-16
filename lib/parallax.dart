@@ -56,7 +56,7 @@ class Parallax extends SpriteComponent with HasGameReference<FFGame> {
 
   @override
   void update(double dt) {
-    position.x -= speed * game.speed;
+    position.x -= speed * game.speed * dt;
     if (absolutePosition.x < -size.x) {
       position.x = game.size.x + size.x + absolutePosition.x;
     }

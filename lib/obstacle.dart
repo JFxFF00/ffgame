@@ -28,7 +28,7 @@ class Obstacle extends SpriteComponent
   @override
   void update(double dt) {
     super.update(dt);
-    x -= game.speed;
+    x -= game.speed * dt;
 
     if (shouldDie) die();
   }

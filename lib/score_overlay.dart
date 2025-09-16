@@ -1,5 +1,4 @@
 import 'package:ffgame/barrel.dart';
-import 'package:ffgame/high_score.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

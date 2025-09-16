@@ -2,16 +2,21 @@
 // To update, run 'make barrel'.
 // Exporting all files from: lib
 
-export '/barrel.dart';
-export '/coin.dart';
-export '/enums.dart';
-export '/game.dart';
-export '/game_balance.dart';
-export '/helpers.dart';
-export '/image_holder.dart';
-export '/input_handler.dart';
-export '/main.dart';
-export '/obstacle.dart';
-export '/obstacle_manager.dart';
-export '/play_area.dart';
-export '/player.dart';
+export 'coin.dart';
+export 'enums.dart';
+export 'game_balance.dart';
+export 'game.dart';
+export 'helpers.dart';
+export 'high_score.dart';
+export 'image_holder.dart';
+export 'input_handler.dart';
+export 'main.dart';
+export 'music_manager.dart';
+export 'obstacle_manager.dart';
+export 'obstacle.dart';
+export 'parallax.dart';
+export 'play_area.dart';
+export 'player.dart';
+export 'score_overlay.dart';
+export 'shadow.dart';
+export 'tap_button.dart';

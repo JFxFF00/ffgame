@@ -1,5 +1,5 @@
 class GameBalance {
-  static const double gameSpeedBase = 1.8 * 3;
+  static const double gameSpeedBase = 500;
   static const double gamesSpeedIncrease = 0.11;
 
   static const double obstaclesBaseDelay = 120;

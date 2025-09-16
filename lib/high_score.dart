@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:ffgame/barrel.dart';
-import 'package:ffgame/score_overlay.dart';
 import 'package:flame/components.dart';
 import 'package:http/http.dart' as http;
 

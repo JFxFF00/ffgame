@@ -19,8 +19,6 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   double delay = GameBalance.obstaclesBaseDelay;
   double coinDelay = 50;
 
-  double get doubleChance => GameBalance.obstacleDoubleChanceBase;
-
   double get delayDecrease => game.speed * GameBalance.obstacleDelayDecrease;
   double get minDelay =>
       GameBalance.obstaclesBaseDelay * GameBalance.obstacleDelayVariation -
@@ -37,8 +35,8 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
     super.update(dt);
     if (game.gameState == GameState.scoreScreen) return;
 
-    delay -= 1;
-    coinDelay -= 1;
+    delay -= dt;
+    coinDelay -= dt;
 
     if (delay <= 0) {
       _spawnObstacles();
