@@ -11,7 +11,7 @@ class Coin extends SpriteAnimationComponent
     with HasGameReference<FFGame>, CollisionCallbacks {
   Coin()
       : super(
-          anchor: Anchor.center,
+          anchor: Anchor.bottomCenter,
           size: Vector2(48, 48),
         );
 

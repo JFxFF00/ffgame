@@ -19,8 +19,7 @@ class PlayArea extends RectangleComponent
   FutureOr<void> onLoad() {
     size = Vector2(game.size.x, game.size.y);
     add(ParallaxController(
-      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
-          game.size.y - game.groundPosition),
+      eachSize: Vector2((FFGame.groundYPosition) * 2, FFGame.groundYPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,
       yPosition: 0,
@@ -29,11 +28,10 @@ class PlayArea extends RectangleComponent
       eachSize: Vector2(400, 200),
       sprite: Sprite(game.imageHolder.buildings1),
       speed: 0.04,
-      yPosition: game.size.y - 200 - game.groundPosition,
+      yPosition: FFGame.groundYPosition - 200,
     ));
     add(ParallaxController(
-      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
-          game.size.y - game.groundPosition),
+      eachSize: Vector2(FFGame.groundYPosition * 2, FFGame.groundYPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,
       yPosition: 0,
@@ -44,11 +42,10 @@ class PlayArea extends RectangleComponent
       sprite: Sprite(game.imageHolder.buildings1),
       speed: 0.06,
       xPosition: 100,
-      yPosition: game.size.y - 300 - game.groundPosition,
+      yPosition: FFGame.groundYPosition - 300,
     ));
     add(ParallaxController(
-      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
-          game.size.y - game.groundPosition),
+      eachSize: Vector2(FFGame.groundYPosition * 2, FFGame.groundYPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,
       yPosition: 0,
@@ -59,11 +56,10 @@ class PlayArea extends RectangleComponent
       sprite: Sprite(game.imageHolder.buildings1),
       speed: 0.08,
       xPosition: -100,
-      yPosition: game.size.y - 500 - game.groundPosition,
+      yPosition: FFGame.groundYPosition - 500,
     ));
     add(ParallaxController(
-      eachSize: Vector2((game.size.y - game.groundPosition) * 2,
-          game.size.y - game.groundPosition),
+      eachSize: Vector2(FFGame.groundYPosition * 2, FFGame.groundYPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,
       yPosition: 0,
@@ -74,13 +70,13 @@ class PlayArea extends RectangleComponent
       sprite: Sprite(game.imageHolder.buildings1),
       speed: 0.14,
       xPosition: 300,
-      yPosition: game.size.y - 700 - game.groundPosition,
+      yPosition: FFGame.groundYPosition - 700,
     ));
     add(ParallaxController(
       eachSize: Vector2(1024, 512),
       sprite: Sprite(game.imageHolder.grass),
       speed: 1,
-      yPosition: game.size.y - game.groundPosition - 130,
+      yPosition: FFGame.groundYPosition - 130,
     ));
 
     return super.onLoad();

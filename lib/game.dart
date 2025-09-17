@@ -1,16 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:ffgame/enums.dart';
-import 'package:ffgame/game_balance.dart';
-import 'package:ffgame/helpers.dart';
-import 'package:ffgame/high_score.dart';
-import 'package:ffgame/image_holder.dart';
-import 'package:ffgame/input_handler.dart';
-import 'package:ffgame/music_manager.dart';
-import 'package:ffgame/obstacle_manager.dart';
-import 'package:ffgame/play_area.dart';
-import 'package:ffgame/player.dart';
-import 'package:ffgame/tap_button.dart';
+import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -18,6 +8,8 @@ import 'package:flutter/foundation.dart';
 
 class FFGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
+  static late double groundYPosition;
+
   GameState gameState = GameState.playing;
   ImageHolder imageHolder = ImageHolder();
   TextComponent scoreText = TextComponent(anchor: Anchor.center);
@@ -30,10 +22,10 @@ class FFGame extends FlameGame
   ObstacleManager obstacleManager = ObstacleManager();
   ScoreManager scoreManager = ScoreManager();
   double duration = 0;
-  double get groundPosition => size.y * 0.35;
   double speed = GameBalance.gameSpeedBase;
+  int level = 1;
 
-  late Vector2 startPosition;
+  late Vector2 playerStart;
   late InputHandler inputHandler;
 
   @override
@@ -50,6 +42,7 @@ class FFGame extends FlameGame
   FutureOr<void> onLoad() async {
     await imageHolder.load();
     await scoreManager.getHighScores();
+    groundYPosition = size.y * 0.65;
     MusicManager.playBackgroundMusic(this);
 
     camera.viewfinder.anchor = Anchor.topLeft;
@@ -72,16 +65,17 @@ class FFGame extends FlameGame
   }
 
   void setupPlayArea() {
-    startPosition = Vector2(
+    playerStart = Vector2(
       centerLeft.x + 200,
-      size.y - groundPosition - player.size.y / 2,
+      groundYPosition - player.size.y / 2,
     );
-    player.position = startPosition;
+    player.position = playerStart;
     obstacleManager.position = Vector2(
       bottomRight.x,
-      size.y - groundPosition,
+      groundYPosition,
     );
-    scoreText.position = Vector2(size.x / 2, size.y - groundPosition / 2);
+    scoreText.position =
+        Vector2(size.x / 2, size.y - (size.y - groundYPosition) / 2);
     fps.position = Vector2(-20, 40);
 
     world.add(inputHandler);
@@ -116,7 +110,9 @@ class FFGame extends FlameGame
     duration = 0;
     scoreManager.newGame();
     obstacleManager.reset();
-    player.position = startPosition;
+    world.removeWhere((element) => element is Obstacle);
+    world.removeWhere((element) => element is Coin);
+    player.position = playerStart;
     speed = GameBalance.gameSpeedBase;
     highScoreText.text =
         'High Score: ${scoreWithTitle(scoreManager.highScore.score)}';
