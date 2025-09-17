@@ -24,7 +24,7 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
 
     delay -= dt;
     if (delay <= 0) {
-      final level = LevelHelper.getLevel(game.level, game);
+      final level = Level.fromInt(game.level);
       final challenge = level.spawnChallengesInto(game);
       delay = challenge.duration;
     }
