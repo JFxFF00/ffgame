@@ -14,6 +14,7 @@ abstract class FlippChallonge {
       ChallengeElement.obstacle(50, amount: 2, size: 0.443),
       ChallengeElement.coin(Vector2(100, -120)),
       ChallengeElement.obstacle(300, amount: 20, size: 0.3),
+      ChallengeElement.obstacle(600, size: 3),
     ]);
   }
 }
