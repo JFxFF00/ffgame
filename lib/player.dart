@@ -16,14 +16,14 @@ class Player extends SpriteComponent
           children: [CircleHitbox()],
         );
 
-  static const double jumpForce = 1200;
-  static const double extraJumpJuice = 1200;
+  static const double jumpForce = 600;
+  static const double extraJumpJuice = 78000;
   Stopwatch timer = Stopwatch();
   final maxTime = Duration(milliseconds: 200);
 
   double _yVelocity = 0;
   double _xVelocity = 0;
-  double _gravity = 50;
+  double _gravity = 5000;
 
   double _rotationSpeed = 0;
 
@@ -51,11 +51,11 @@ class Player extends SpriteComponent
     if (timer.isRunning && state.isJumping) {
       final timerJuice = ((maxTime - timer.elapsed).inMilliseconds / 1000)
           .clamp(0, double.infinity);
-      _yVelocity += -extraJumpJuice * dt * timerJuice;
+      _yVelocity -= extraJumpJuice * dt * timerJuice;
     }
 
     if (!state.isGrounded) {
-      _yVelocity += _gravity;
+      _yVelocity += _gravity * dt;
     }
 
     if (state.isGrounded) {
@@ -81,12 +81,13 @@ class Player extends SpriteComponent
     super.update(dt);
   }
 
-  void jump({double speed = jumpForce}) {
+  void jump({double force = jumpForce}) {
     if (state.isGrounded) {
       timer.reset();
-      _yVelocity = -speed;
+      _yVelocity = -force;
       _rotationSpeed += 4.5;
       timer.start();
+      state = PlayerState.jumping;
     }
   }
 
