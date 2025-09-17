@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ffgame/game.dart';
-import 'package:ffgame/helpers.dart';
 import 'package:ffgame/player.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -10,7 +9,7 @@ class Obstacle extends SpriteComponent
     with HasGameReference<FFGame>, CollisionCallbacks {
   Obstacle()
       : super(
-          size: Vector2.all(randomFromRange(48, 64)),
+          size: Vector2.all(64),
           anchor: Anchor.bottomLeft,
           children: [
             CircleHitbox(),
@@ -39,7 +38,9 @@ class Obstacle extends SpriteComponent
 
   @override
   void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Player) removeFromParent();
   }

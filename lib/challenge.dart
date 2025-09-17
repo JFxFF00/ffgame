@@ -41,7 +41,6 @@ class Challenge {
       duration: 3,
       elements: [
         ChallengeElement.coin(Vector2(500, -60)),
-        ChallengeElement.obstacleLump(700, 3),
         ChallengeElement.coin(Vector2(900, -100)),
         ChallengeElement.obstacle(1100),
         ChallengeElement.coin(Vector2(1300, -30)),
@@ -61,27 +60,16 @@ class ChallengeElement {
 
   ChallengeElement(this.type, this.position, {this.size = 1, this.amount = 1});
 
-  factory ChallengeElement.obstacleLump(
-    double x,
-    int amount, {
-    double? size,
-  }) {
-    return ChallengeElement(
-      ChallengeElementType.obstacle,
-      Vector2(x, FFGame.groundYPosition),
-      amount: amount,
-      size: size ?? 1,
-    );
-  }
-
   factory ChallengeElement.obstacle(
     double x, {
     double? size,
+    int? amount,
   }) {
     return ChallengeElement(
       ChallengeElementType.obstacle,
       Vector2(x, FFGame.groundYPosition),
       size: size ?? 1,
+      amount: amount ?? 1,
     );
   }
 
