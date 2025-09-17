@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ffgame/challenge.dart';
+import 'package:ffgame/challenges/flipp_challonge.dart';
 import 'package:ffgame/challenges/jhon_chloo.dart';
 import 'package:ffgame/game.dart';
 
@@ -28,7 +29,7 @@ class Level {
   factory Level.fromInt(int level) {
     switch (level) {
       case 1:
-        return Level(challenges: [JhonChloo.cool()]);
+        return Level(challenges: [FlippChallonge.flippChallonge()]);
       default:
         return Level(challenges: []);
     }
