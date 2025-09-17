@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'package:ffgame/enums.dart';
-import 'package:ffgame/game.dart';
-import 'package:ffgame/helpers.dart';
-import 'package:ffgame/obstacle.dart';
+import 'package:ffgame/barrel.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
@@ -16,14 +13,16 @@ class Player extends SpriteComponent
           children: [CircleHitbox()],
         );
 
+  static const double movementSpeed = 300;
   static const double jumpForce = 600;
   static const double extraJumpJuice = 78000;
+  static const double gravity = 5000;
+
   Stopwatch timer = Stopwatch();
   final maxTime = Duration(milliseconds: 200);
 
   double _yVelocity = 0;
   double _xVelocity = 0;
-  double _gravity = 5000;
 
   double _rotationSpeed = 0;
 
@@ -55,7 +54,7 @@ class Player extends SpriteComponent
     }
 
     if (!state.isGrounded) {
-      _yVelocity += _gravity * dt;
+      _yVelocity += gravity * dt;
     }
 
     if (state.isGrounded) {
@@ -71,9 +70,9 @@ class Player extends SpriteComponent
     );
 
     if (_xVelocity > 0) {
-      _rotationSpeed += _xVelocity * 0.001;
+      _rotationSpeed += _xVelocity * 0.0002;
     } else if (_xVelocity < 0) {
-      _rotationSpeed += _xVelocity * 0.001;
+      _rotationSpeed += _xVelocity * 0.00015;
     }
 
     angle += radiansFromDegrees(_rotationSpeed);
@@ -93,7 +92,7 @@ class Player extends SpriteComponent
 
   void move({
     Direction direction = Direction.left,
-    double speed = 150,
+    double speed = movementSpeed,
   }) {
     double modifiedSpeed = speed;
     if (!state.isGrounded) {
@@ -118,7 +117,7 @@ class Player extends SpriteComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    if (other is Obstacle) {
+    if (other is Obstacle || other is Bird) {
       game.end();
     }
   }

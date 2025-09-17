@@ -41,7 +41,6 @@ class ScoreManager {
   }
 
   Future<void> addHighScore(HighScoreEntry entry) async {
-    print('Adding high score: ${entry}');
     highScores.add(entry);
     highScores.sort((a, b) => b.score.compareTo(a.score));
     if (highScores.length > 10) {
@@ -49,7 +48,6 @@ class ScoreManager {
     }
 
     final body = jsonEncode(highScores.map((e) => e.toJson()).toList());
-    print('Body: $body');
 
     await http.post(
       Uri.parse('https://rpi.memention.net/doc/johans_highscore.json'),

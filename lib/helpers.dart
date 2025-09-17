@@ -41,6 +41,11 @@ String scoreWithTitle(double score) {
   return '${score.round()} [$title]';
 }
 
+String levelWithTitle(int level) {
+  String title = LoyaltyLevels.fromLevel(level).name;
+  return '${level} [$title]';
+}
+
 extension DoubleExtensions on double {
   double moveTowardsValue(double amount, double target) {
     if (this > target) {

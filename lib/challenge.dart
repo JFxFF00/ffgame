@@ -1,3 +1,4 @@
+import 'package:ffgame/bird.dart';
 import 'package:ffgame/game.dart';
 import 'package:ffgame/obstacle.dart';
 import 'package:ffgame/coin.dart';
@@ -80,14 +81,23 @@ class ChallengeElement {
     );
   }
 
+  factory ChallengeElement.bird(Vector2 pos) {
+    return ChallengeElement(
+      ChallengeElementType.bird,
+      Vector2(pos.x, FFGame.groundYPosition + pos.y),
+    );
+  }
+
   PositionComponent createComponent() {
     switch (type) {
       case ChallengeElementType.obstacle:
         return Obstacle();
       case ChallengeElementType.coin:
         return Coin();
+      case ChallengeElementType.bird:
+        return Bird();
     }
   }
 }
 
-enum ChallengeElementType { obstacle, coin }
+enum ChallengeElementType { obstacle, coin, bird }

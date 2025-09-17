@@ -18,8 +18,8 @@ class Coin extends SpriteAnimationComponent
   bool get shouldDie => absolutePosition.x < (-game.size.x / 2);
   CircleHitbox circleHitbox = CircleHitbox();
   double _yVelocity = 0;
-  double get value =>
-      10.0 * (LoyaltyLevels.fromScore(game.scoreManager.score).index + 1);
+  double get value => 10.0;
+  //* (LoyaltyLevels.fromScore(game.scoreManager.score).index + 1);
 
   @override
   FutureOr<void> onLoad() async {
@@ -74,6 +74,5 @@ class Coin extends SpriteAnimationComponent
         () => removeFromParent(),
       );
     }
-    ;
   }
 }

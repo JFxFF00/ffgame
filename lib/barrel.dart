@@ -2,14 +2,18 @@
 // To update, run 'make barrel'.
 // Exporting all files from: lib
 
+export 'bird.dart';
+export 'challenge.dart';
+export 'challenges/filip.dart';
+export 'challenges/jhon_chloo.dart';
 export 'coin.dart';
 export 'enums.dart';
 export 'game_balance.dart';
 export 'game.dart';
 export 'helpers.dart';
-export 'high_score.dart';
 export 'image_holder.dart';
 export 'input_handler.dart';
+export 'level.dart';
 export 'main.dart';
 export 'music_manager.dart';
 export 'obstacle_manager.dart';
@@ -17,6 +21,8 @@ export 'obstacle.dart';
 export 'parallax.dart';
 export 'play_area.dart';
 export 'player.dart';
+export 'score_manager.dart';
 export 'score_overlay.dart';
 export 'shadow.dart';
 export 'tap_button.dart';
+export 'texts.dart';

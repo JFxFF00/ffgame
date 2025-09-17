@@ -1,8 +1,4 @@
-import 'package:ffgame/coin.dart';
-import 'package:ffgame/enums.dart';
-import 'package:ffgame/game.dart';
-import 'package:ffgame/level.dart';
-import 'package:ffgame/obstacle.dart';
+import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
 
 class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
@@ -17,6 +13,8 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   List<Obstacle> obstacles = [];
   List<Coin> coins = [];
 
+  bool hasSpawnedInitialChallenge = false;
+
   @override
   void update(double dt) {
     super.update(dt);
@@ -24,9 +22,17 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
 
     delay -= dt;
     if (delay <= 0) {
+      if (hasSpawnedInitialChallenge) {
+        game.challengesCompleted++;
+      }
+      if (game.challengesCompleted >= GameBalance.challengesToNextLevel) {
+        game.level++;
+        game.challengesCompleted = 1;
+      }
       final level = Level.fromInt(game.level);
       final challenge = level.spawnChallengesInto(game);
       delay = challenge.duration;
+      hasSpawnedInitialChallenge = true;
     }
   }
 

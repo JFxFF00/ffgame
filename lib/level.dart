@@ -1,9 +1,6 @@
 import 'dart:math';
 
-import 'package:ffgame/challenge.dart';
-import 'package:ffgame/challenges/filip.dart';
-import 'package:ffgame/challenges/jhon_chloo.dart';
-import 'package:ffgame/game.dart';
+import 'package:ffgame/barrel.dart';
 
 class Level {
   final String name;
@@ -28,21 +25,42 @@ class Level {
 
   factory Level.fromInt(int level) {
     switch (level) {
+      case 4:
+        return Level(challenges: [
+          JhonChloo4.one(),
+        ]);
+      case 3:
+        return Level(challenges: [
+          Filip.ultimateChallenge(),
+          Filip.mixedChallenge(),
+          Filip.jumpOverCars(),
+        ]);
+      case 2:
+        return Level(challenges: [
+          JhonChloo2.one(),
+          JhonChloo2.two(),
+          JhonChloo2.three(),
+          Filip.dodgeAndCollect(),
+        ]);
       case 1:
         return Level(challenges: [
           Filip.crazyFrog(),
-          Filip.jumpOverCars(),
-          Filip.dodgeAndCollect(),
           Filip.runAndJump(),
           Filip.speedRun(),
-          Filip.ultimateChallenge(),
           Filip.coinCollector(),
           Filip.speedRunWithCars(),
-          Filip.mixedChallenge(),
           Filip.longJumpChallenge(),
+          JhonChloo.one(),
+          JhonChloo.two(),
+          JhonChloo.three(),
         ]);
       default:
-        return Level(challenges: []);
+        return Level(challenges: [
+          // JhonChloo2.one(),
+          // JhonChloo2.two(),
+          // JhonChloo2.three(),
+          JhonChloo.death(),
+        ]);
     }
   }
 }

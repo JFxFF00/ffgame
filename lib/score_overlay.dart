@@ -38,6 +38,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
   @override
   void dispose() {
     nameFocusNode.removeListener(_handleFocus);
+    animationController?.dispose();
     super.dispose();
   }
 
@@ -117,7 +118,14 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('${placement}. ${entry.name}', style: style),
+        Expanded(
+          child: Text(
+            '${placement}. ${entry.name}',
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            style: style,
+          ),
+        ),
         Text('${entry.score.round()}', style: style),
       ],
     );

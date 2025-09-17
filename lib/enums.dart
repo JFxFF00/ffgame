@@ -77,6 +77,10 @@ enum LoyaltyLevels {
     if (score > stay.threshold) return stay;
     return come;
   }
+
+  static LoyaltyLevels fromLevel(int level) {
+    return LoyaltyLevels.values[level - 1];
+  }
 }
 
 enum GameState {

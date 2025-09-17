@@ -4,7 +4,9 @@ import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FFGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
@@ -12,7 +14,10 @@ class FFGame extends FlameGame
 
   GameState gameState = GameState.playing;
   ImageHolder imageHolder = ImageHolder();
-  TextComponent scoreText = TextComponent(anchor: Anchor.center);
+
+  TextComponent scoreText = TextComponent();
+  TextComponent levelText = TextComponent();
+  TextComponent levelProgressText = TextComponent();
   TextComponent highScoreText = TextComponent(anchor: Anchor.centerLeft);
   FpsTextComponent fps = FpsTextComponent(
     anchor: Anchor.centerRight,
@@ -22,8 +27,9 @@ class FFGame extends FlameGame
   ObstacleManager obstacleManager = ObstacleManager();
   ScoreManager scoreManager = ScoreManager();
   double duration = 0;
-  double speed = GameBalance.gameSpeedBase;
+  double speed = GameBalance.gameSpeed;
   int level = 1;
+  int challengesCompleted = 0;
 
   late Vector2 playerStart;
   late InputHandler inputHandler;
@@ -41,7 +47,12 @@ class FFGame extends FlameGame
   @override
   FutureOr<void> onLoad() async {
     await imageHolder.load();
+    await AudioCache.instance.load('coin_pickup.mp3');
     await scoreManager.getHighScores();
+    await GoogleFonts.pendingFonts([
+      GoogleFonts.novaMono(),
+      GoogleFonts.notoSansMono(),
+    ]);
     groundYPosition = size.y * 0.65;
     MusicManager.playBackgroundMusic(this);
 
@@ -57,9 +68,13 @@ class FFGame extends FlameGame
   void update(double dt) {
     if (gameState == GameState.playing) {
       duration += dt;
-      scoreManager.addScore(dt * speed * 0.4);
-      scoreText.text = 'Lojalitetspoäng: ${scoreWithTitle(scoreManager.score)}';
-      speed += dt * GameBalance.gamesSpeedIncrease;
+      scoreManager.addScore(dt * speed * GameBalance.scoreFromDistance);
+      final challengeX = '█' * challengesCompleted;
+      final challengeO =
+          '-' * (GameBalance.challengesToNextLevel - challengesCompleted);
+      levelText.text = 'Level ${levelWithTitle(level)}';
+      levelProgressText.text = '$challengeX$challengeO';
+      scoreText.text = 'Score ${scoreManager.score.round()}';
     }
     super.update(dt);
   }
@@ -74,8 +89,18 @@ class FFGame extends FlameGame
       bottomRight.x,
       groundYPosition,
     );
-    scoreText.position =
-        Vector2(size.x / 2, size.y - (size.y - groundYPosition) / 2);
+
+    final levelTextPosition =
+        Vector2(50, size.y - (size.y - groundYPosition) / 2);
+
+    levelText.position = levelTextPosition + Vector2(0, -40);
+    levelProgressText.position = levelTextPosition;
+    scoreText.position = levelTextPosition + Vector2(0, 50);
+
+    levelText.textRenderer = Texts.mono;
+    levelProgressText.textRenderer = Texts.actualMono;
+    scoreText.textRenderer = Texts.monoSmall;
+
     fps.position = Vector2(-20, 40);
 
     world.add(inputHandler);
@@ -83,6 +108,8 @@ class FFGame extends FlameGame
     world.add(player);
     world.add(obstacleManager);
     world.add(scoreText);
+    world.add(levelProgressText);
+    world.add(levelText);
     world.add(fps);
 
     if (!kIsWeb) {
@@ -108,12 +135,15 @@ class FFGame extends FlameGame
 
   void restart() {
     duration = 0;
+    level = 1;
+    challengesCompleted = 0;
     scoreManager.newGame();
     obstacleManager.reset();
     world.removeWhere((element) => element is Obstacle);
     world.removeWhere((element) => element is Coin);
+    world.removeWhere((element) => element is Bird);
     player.position = playerStart;
-    speed = GameBalance.gameSpeedBase;
+    speed = GameBalance.gameSpeed;
     highScoreText.text =
         'High Score: ${scoreWithTitle(scoreManager.highScore.score)}';
     gameState = GameState.playing;

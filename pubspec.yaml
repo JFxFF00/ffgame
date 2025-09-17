@@ -12,6 +12,7 @@ dependencies:
   flame_audio: ^2.11.10
   flutter:
     sdk: flutter
+  google_fonts: ^6.3.1
   http: ^1.4.0
   shared_preferences: ^2.5.3
 

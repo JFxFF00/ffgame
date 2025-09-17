@@ -25,7 +25,6 @@ void main() async {
       home: GameWidget(
         game: FFGame(),
         focusNode: focusNode,
-        // initialActiveOverlays: [ScoreOverlay.name],
         overlayBuilderMap: {
           ScoreOverlay.name: (context, FFGame game) {
             return ScoreOverlay(game: game);
