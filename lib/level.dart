@@ -52,7 +52,12 @@ class Level {
           JhonChloo4.one(),
         ]);
       case 5:
-        return Level(challenges: [Filip5.ultimateChallenge()]);
+        return Level(challenges: [
+          Filip5.ultimateChallenge(),
+          Filip5.longJumpChallenge()
+        ]);
+      case 6:
+        return Level(challenges: [Filip6.speedRunWithCars()]);
       default:
         return Level(challenges: []);
     }
