@@ -46,10 +46,12 @@ class Level {
           JhonChloo2.three(),
           JhonChloo2.four(),
           Filip3.speedRun(),
+          Filip3.birdChallenge(),
         ]);
       case 4:
         return Level(challenges: [
           Filip4.dodgeAndCollect(),
+          Filip4.timeTrial(),
           JhonChloo4.one(),
         ]);
       case 5:
@@ -64,7 +66,7 @@ class Level {
           JhonChloo5.one(),
         ]);
       default:
-        return Level(challenges: [Filip6.mixedChallenge()]);
+        return Level(challenges: [Filip4.timeTrial()]);
     }
   }
 }

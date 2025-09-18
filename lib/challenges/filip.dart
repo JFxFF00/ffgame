@@ -41,7 +41,7 @@ abstract class Filip2 {
 
 abstract class Filip3 {
   static Challenge speedRun() {
-    return Challenge(duration: 5, elements: [
+    return Challenge(name: 'Speed Run', duration: 5, elements: [
       ChallengeElement.bird(Vector2(0, -200)),
       ChallengeElement.obstacle(0, size: 1),
       ChallengeElement.coin(Vector2(120, 0)),
@@ -50,11 +50,27 @@ abstract class Filip3 {
       ChallengeElement.obstacle(400, size: 1.5),
     ]);
   }
+
+  static Challenge birdChallenge() {
+    return Challenge(name: 'Bird Challenge', duration: 5, elements: [
+      ChallengeElement.bird(Vector2(0, -300)),
+      ChallengeElement.cash(Vector2(0, -100)),
+      ChallengeElement.bird(Vector2(100, -300)),
+      ChallengeElement.cash(Vector2(100, -100)),
+      ChallengeElement.bird(Vector2(200, -300)),
+      ChallengeElement.cash(Vector2(200, -100)),
+      ChallengeElement.bird(Vector2(300, -300)),
+      ChallengeElement.bird(Vector2(400, -300)),
+      ChallengeElement.coin(Vector2(450, 0), amount: 3),
+      ChallengeElement.bird(Vector2(500, -300)),
+      ChallengeElement.bird(Vector2(600, -50)),
+    ]);
+  }
 }
 
 abstract class Filip4 {
   static Challenge dodgeAndCollect() {
-    return Challenge(duration: 5, elements: [
+    return Challenge(name: 'Dodge and Collect', duration: 5, elements: [
       ChallengeElement.obstacle(0),
       ChallengeElement.obstacle(200),
       ChallengeElement.bird(Vector2(200, -100)),
@@ -62,6 +78,19 @@ abstract class Filip4 {
       ChallengeElement.obstacle(400),
       ChallengeElement.obstacle(600),
       ChallengeElement.bird(Vector2(600, -100)),
+    ]);
+  }
+
+  static Challenge timeTrial() {
+    return Challenge(name: 'Time Trial', duration: 6, elements: [
+      ChallengeElement.obstacle(0, size: 1.5),
+      ChallengeElement.coin(Vector2(150, 0), amount: 5),
+      ChallengeElement.obstacle(300, amount: 2),
+      ChallengeElement.coin(Vector2(400, 0), amount: 5),
+      ChallengeElement.bird(Vector2(500, -100)),
+      ChallengeElement.obstacle(600, size: 2),
+      ChallengeElement.coin(Vector2(700, 0), amount: 5),
+      ChallengeElement.obstacle(900, amount: 3),
     ]);
   }
 }
@@ -86,7 +115,7 @@ abstract class Filip5 {
   }
 
   static Challenge longJumpChallenge() {
-    return Challenge(duration: 5, elements: [
+    return Challenge(name: 'Long Jump Challenge', duration: 5, elements: [
       ChallengeElement.obstacle(0, size: 3),
       ChallengeElement.bird(Vector2(30, -300)),
       ChallengeElement.coin(Vector2(200, -150)),
@@ -124,7 +153,7 @@ abstract class Filip6 {
   }
 
   static Challenge mixedChallenge() {
-    return Challenge(duration: 7, elements: [
+    return Challenge(name: 'Mixed Challenge', duration: 7, elements: [
       ChallengeElement.cash(Vector2(0, 0), amount: 2),
       ChallengeElement.obstacle(100, size: 1),
       ChallengeElement.bird(Vector2(100, -130)),
