@@ -29,14 +29,15 @@ class Level {
         return Level(challenges: [
           Filip1.coinCollector(),
           Filip1.jumpOverCars(),
-          JhonChloo.one(),
-          JhonChloo.two(),
-          JhonChloo.three(),
         ]);
       case 2:
         return Level(challenges: [
           Filip2.crazyFrog(),
           Filip2.runAndJump(),
+          JhonChloo.one(),
+          JhonChloo.two(),
+          JhonChloo.three(),
+          JhonChloo.four(),
         ]);
       case 3:
         return Level(challenges: [
