@@ -22,7 +22,13 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
       if (hasSpawnedInitialChallenge) {
         game.challengesCompleted++;
       }
-      if (game.challengesCompleted >= GameBalance.challengesToNextLevel) {
+
+      int challengesToComplete = GameBalance.challengesToNextLevel;
+
+      if (game.level == 1) {
+        challengesToComplete = GameBalance.challengesOnLevel1;
+      }
+      if (game.challengesCompleted >= challengesToComplete) {
         game.level++;
         game.challengesCompleted = 1;
       }
@@ -35,6 +41,7 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
         game.challengeNameText.text = challenge.name!;
       }
       delay = challenge.duration;
+      game.speed = level.speed * GameBalance.gameSpeed;
       hasSpawnedInitialChallenge = true;
     }
   }

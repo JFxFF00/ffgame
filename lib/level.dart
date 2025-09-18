@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:ffgame/barrel.dart';
 
 class Level {
+  final double speed;
   final List<Challenge> challenges;
 
   Level({
     this.challenges = const [],
+    this.speed = 1,
   });
 
   /// Spawn all challenges into the world
@@ -57,11 +59,17 @@ class Level {
       case 5:
         return Level(challenges: [
           Filip5.ultimateChallenge(),
-          Filip5.longJumpChallenge()
+          Filip5.longJumpChallenge(),
+          JhonChloo5.two(),
         ]);
       case 6:
         return Level(challenges: [
           Filip6.speedRunWithCars(),
+          Filip6.mixedChallenge(),
+          JhonChloo5.one(),
+        ]);
+      case 7:
+        return Level(speed: 1.5, challenges: [
           Filip6.mixedChallenge(),
           JhonChloo5.one(),
         ]);

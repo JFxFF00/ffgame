@@ -12,6 +12,10 @@ class InputHandler extends KeyboardListenerComponent
               game.player.jump();
               return true;
             },
+            LogicalKeyboardKey.arrowUp: (_) {
+              game.player.jump();
+              return true;
+            },
             LogicalKeyboardKey.arrowLeft: (_) {
               game.player.move(direction: Direction.left);
               return true;

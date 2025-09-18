@@ -214,4 +214,25 @@ abstract class JhonChloo5 {
       ],
     );
   }
+
+  static Challenge two() {
+    return Challenge(
+      name: 'lemme see',
+      duration: 4.5,
+      elements: [
+        ChallengeElement.obstacle(0, size: 2),
+        ChallengeElement.obstacle(150, amount: 2, size: 1.5),
+        ChallengeElement.coin(Vector2(60, -200)),
+        ChallengeElement.obstacle(400, size: 2.5),
+        ChallengeElement.coin(Vector2(340, -250)),
+        ChallengeElement.coin(Vector2(420, -300)),
+        ChallengeElement.bird(Vector2(470, -350)),
+        ChallengeElement.obstacle(600, size: 1.8),
+        ChallengeElement.coin(Vector2(650, -180)),
+        ChallengeElement.obstacle(720, size: 1.2),
+        ChallengeElement.cash(Vector2(770, 0)),
+        ChallengeElement.obstacle(821, size: 1.2),
+      ],
+    );
+  }
 }

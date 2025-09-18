@@ -3,5 +3,6 @@ class GameBalance {
 
   static const double scoreFromDistance = 0.02;
 
+  static const int challengesOnLevel1 = 2;
   static const int challengesToNextLevel = 5;
 }

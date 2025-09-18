@@ -70,9 +70,12 @@ class FFGame extends FlameGame
     if (gameState == GameState.playing) {
       duration += dt;
       scoreManager.addScore(dt * speed * GameBalance.scoreFromDistance);
+      int challengesToComplete = GameBalance.challengesToNextLevel;
+      if (level == 1) {
+        challengesToComplete = GameBalance.challengesOnLevel1;
+      }
       final challengeX = '█' * challengesCompleted;
-      final challengeO =
-          '-' * (GameBalance.challengesToNextLevel - challengesCompleted);
+      final challengeO = '-' * (challengesToComplete - challengesCompleted - 1);
       levelText.text = 'Level ${levelWithTitle(level)}';
       levelProgressText.text = '$challengeX$challengeO';
       scoreText.text = 'Score ${scoreManager.score.round()}';

@@ -79,6 +79,7 @@ enum LoyaltyLevels {
   }
 
   static LoyaltyLevels fromLevel(int level) {
+    if (level > fly.index) return fly;
     return LoyaltyLevels.values[level - 1];
   }
 }
