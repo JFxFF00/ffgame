@@ -26,9 +26,9 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 1000),
-      lowerBound: 0.9,
-      upperBound: 1.1,
-      value: 1,
+      lowerBound: 1.0,
+      upperBound: 1.2,
+      animationBehavior: AnimationBehavior.preserve,
     );
     nameFocusNode.addListener(_handleFocus);
     animationController?.repeat();
@@ -272,9 +272,13 @@ class _ScoreOverlayState extends State<ScoreOverlay>
             ),
           ),
         SizedBox(height: 8),
-        Text(
-          'Press "R" to restart',
-          style: TextStyle(color: Colors.white),
+        AnimatedScale(
+          scale: animationController?.value ?? 1,
+          duration: Duration(milliseconds: 1000),
+          child: Text(
+            'Press "R" to restart',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );

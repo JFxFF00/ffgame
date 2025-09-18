@@ -3,7 +3,7 @@ import 'package:flame_audio/flame_audio.dart';
 
 abstract class SoundManager {
   static String backgroundMusic = 'background.mp3';
-  static bool on = false;
+  static bool on = true;
 
   static void playBackgroundMusic(FFGame game) {
     if (!on) return;

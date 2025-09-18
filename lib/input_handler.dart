@@ -34,6 +34,10 @@ class InputHandler extends KeyboardListenerComponent
               game.player.stopTimer();
               return true;
             },
+            LogicalKeyboardKey.arrowUp: (_) {
+              game.player.stopTimer();
+              return true;
+            },
             LogicalKeyboardKey.arrowLeft: (_) {
               game.player.stop(Direction.left);
               return true;

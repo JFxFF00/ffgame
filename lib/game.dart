@@ -4,7 +4,6 @@ import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -48,7 +47,6 @@ class FFGame extends FlameGame
   @override
   FutureOr<void> onLoad() async {
     await imageHolder.load();
-    await AudioCache.instance.load('coin_pickup.mp3');
     await scoreManager.getHighScores();
     await GoogleFonts.pendingFonts([
       GoogleFonts.novaMono(),
