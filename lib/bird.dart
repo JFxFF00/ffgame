@@ -5,7 +5,7 @@ import 'package:ffgame/barrel.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-class Bird extends SpriteComponent
+class Bird extends SpriteAnimationComponent
     with HasGameReference<FFGame>, CollisionCallbacks {
   Bird()
       : super(
@@ -20,12 +20,17 @@ class Bird extends SpriteComponent
   double speed = 100;
   double bobSpeed = 2;
   double bobHeight = 40;
-
   double bobOffset = 0;
 
   @override
   FutureOr<void> onLoad() {
-    sprite = Sprite(game.imageHolder.bird);
+    final frame1 = randomFromRange(0.7, 1.0);
+    animation = SpriteAnimation([
+      SpriteAnimationFrame(Sprite(game.imageHolder.birdFly1), frame1),
+      SpriteAnimationFrame(Sprite(game.imageHolder.birdFly2), 0.1),
+      SpriteAnimationFrame(Sprite(game.imageHolder.birdFly3), 0.3),
+    ]);
+
     bobOffset = randomFromRange(0, 100);
     return super.onLoad();
   }

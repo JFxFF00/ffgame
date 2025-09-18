@@ -37,9 +37,9 @@ class FFGame extends FlameGame
   @override
   void lifecycleStateChange(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      MusicManager.playBackgroundMusic(this);
+      SoundManager.playBackgroundMusic(this);
     } else {
-      MusicManager.pauseBackgroundMusic();
+      SoundManager.pauseBackgroundMusic();
     }
     super.lifecycleStateChange(state);
   }
@@ -54,7 +54,7 @@ class FFGame extends FlameGame
       GoogleFonts.notoSansMono(),
     ]);
     groundYPosition = size.y * 0.65;
-    MusicManager.playBackgroundMusic(this);
+    SoundManager.playBackgroundMusic(this);
 
     camera.viewfinder.anchor = Anchor.topLeft;
     inputHandler = InputHandler(this);
@@ -106,6 +106,7 @@ class FFGame extends FlameGame
     world.add(inputHandler);
     world.add(PlayArea());
     world.add(player);
+    world.add(Shadow(player: player));
     world.add(obstacleManager);
     world.add(scoreText);
     world.add(levelProgressText);
@@ -124,7 +125,7 @@ class FFGame extends FlameGame
     gameState = GameState.scoreScreen;
     speed = 0;
 
-    MusicManager.pauseBackgroundMusic();
+    SoundManager.pauseBackgroundMusic();
 
     highScoreText.text = '';
     scoreText.text = '';
@@ -148,6 +149,6 @@ class FFGame extends FlameGame
         'High Score: ${scoreWithTitle(scoreManager.highScore.score)}';
     gameState = GameState.playing;
     scoreManager.hideScores(this);
-    MusicManager.playBackgroundMusic(this);
+    SoundManager.playBackgroundMusic(this);
   }
 }

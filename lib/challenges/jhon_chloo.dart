@@ -6,7 +6,7 @@ abstract class JhonChloo {
     return Challenge(
       duration: 4,
       elements: [
-        ChallengeElement.obstacle(100, size: 50),
+        ChallengeElement.obstacle(100, size: 15),
       ],
     );
   }

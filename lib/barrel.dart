@@ -15,7 +15,7 @@ export 'image_holder.dart';
 export 'input_handler.dart';
 export 'level.dart';
 export 'main.dart';
-export 'music_manager.dart';
+export 'sound_manager.dart';
 export 'obstacle_manager.dart';
 export 'obstacle.dart';
 export 'parallax.dart';

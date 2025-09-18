@@ -59,7 +59,7 @@ class Level {
           // JhonChloo2.one(),
           // JhonChloo2.two(),
           // JhonChloo2.three(),
-          JhonChloo.death(),
+          JhonChloo4.one(),
         ]);
     }
   }

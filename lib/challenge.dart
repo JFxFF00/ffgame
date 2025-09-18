@@ -33,24 +33,6 @@ class Challenge {
       }
     }
   }
-
-  /// A cool sample challenge
-  static Challenge coolChallenge() {
-    return Challenge(
-      name: "Cool Challenge",
-      description: "Navigate through obstacles and collect coins",
-      duration: 3,
-      elements: [
-        ChallengeElement.coin(Vector2(500, -60)),
-        ChallengeElement.coin(Vector2(900, -100)),
-        ChallengeElement.obstacle(1100),
-        ChallengeElement.coin(Vector2(1300, -30)),
-        ChallengeElement.obstacle(1500),
-        ChallengeElement.coin(Vector2(1700, -10)),
-        ChallengeElement.obstacle(1900),
-      ],
-    );
-  }
 }
 
 class ChallengeElement {

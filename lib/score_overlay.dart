@@ -137,8 +137,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
       color: Colors.white,
     );
     final scoreManager = game.scoreManager;
-    final LoyaltyLevels loyaltyLevel =
-        LoyaltyLevels.fromScore(scoreManager.score);
+    final LoyaltyLevels loyaltyLevel = LoyaltyLevels.fromLevel(game.level);
     final double width = 280;
 
     return Column(
@@ -201,7 +200,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Your rating!',
+                    'Level ${game.level}',
                     style: style,
                   ),
                   Text(
@@ -212,7 +211,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                   ),
                 ],
               ),
-              _loyaltyLevelProgress(),
+              // _loyaltyLevelProgress(),
             ],
           ),
         ),
@@ -281,36 +280,36 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     );
   }
 
-  Widget _loyaltyLevelProgress() {
-    TextStyle style = TextStyle(
-      fontSize: 16,
-      color: Colors.white,
-    );
-    final loyaltyLevel =
-        LoyaltyLevels.fromScore(widget.game.scoreManager.score);
+  // Widget _loyaltyLevelProgress() {
+  //   TextStyle style = TextStyle(
+  //     fontSize: 16,
+  //     color: Colors.white,
+  //   );
+  //   final loyaltyLevel =
+  //       LoyaltyLevels.fromScore(widget.game.scoreManager.score);
 
-    if (loyaltyLevel == LoyaltyLevels.fly)
-      return Text('You reached the top level! Fly onnnnn!');
+  //   if (loyaltyLevel == LoyaltyLevels.fly)
+  //     return Text('You reached the top level! Fly onnnnn!');
 
-    final nextLevel = LoyaltyLevels.values[loyaltyLevel.index + 1];
-    final score = widget.game.scoreManager.score;
-    final progress = score / nextLevel.threshold;
-    final amountLeft = nextLevel.threshold - score;
+  //   final nextLevel = LoyaltyLevels.values[loyaltyLevel.index + 1];
+  //   final score = widget.game.scoreManager.score;
+  //   final progress = score / nextLevel.threshold;
+  //   final amountLeft = nextLevel.threshold - score;
 
-    return Column(
-      children: [
-        LinearProgressIndicator(
-          value: progress,
-        ),
-        SizedBox(height: 8),
-        if (loyaltyLevel != LoyaltyLevels.fly)
-          Text(
-            '${amountLeft.round()} points left to [${nextLevel.name}] ',
-            style: style.copyWith(),
-          ),
-      ],
-    );
-  }
+  //   return Column(
+  //     children: [
+  //       LinearProgressIndicator(
+  //         value: progress,
+  //       ),
+  //       SizedBox(height: 8),
+  //       if (loyaltyLevel != LoyaltyLevels.fly)
+  //         Text(
+  //           '${amountLeft.round()} points left to [${nextLevel.name}] ',
+  //           style: style.copyWith(),
+  //         ),
+  //     ],
+  //   );
+  // }
 
   void _handleFocus() {
     if (!nameFocusNode.hasFocus) {

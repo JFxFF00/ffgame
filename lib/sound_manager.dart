@@ -1,7 +1,7 @@
 import 'package:ffgame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-abstract class MusicManager {
+abstract class SoundManager {
   static String backgroundMusic = 'background.mp3';
   static bool on = false;
 
@@ -19,5 +19,14 @@ abstract class MusicManager {
     if (!on) return;
 
     FlameAudio.bgm.pause();
+  }
+
+  static void playSound(String sound) {
+    if (!on) return;
+    try {
+      FlameAudio.play(sound, volume: 0.7);
+    } catch (e) {
+      print('Error playing coin pickup: $e');
+    }
   }
 }

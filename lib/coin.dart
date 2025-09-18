@@ -68,7 +68,7 @@ class Coin extends SpriteAnimationComponent
       animation = null;
       game.scoreManager.addScore(value, fromCoin: true);
 
-      FlameAudio.play('coin_pickup.mp3', volume: 0.7);
+      SoundManager.playSound('coin_pickup.mp3');
       Future.delayed(
         const Duration(milliseconds: 500),
         () => removeFromParent(),

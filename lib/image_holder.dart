@@ -18,7 +18,12 @@ class ImageHolder {
   late Image grass;
   late Image sky;
   late Image bird;
+  late Image birdFly1;
+  late Image birdFly2;
+  late Image birdFly3;
   late Image buildings1;
+  late Image shadow;
+  late Image shadowAlternative;
 
   Future<void> load() async {
     // characterImage = await Flame.images.load('ff_logga.png');
@@ -34,5 +39,10 @@ class ImageHolder {
     sky = await Flame.images.load('sky.jpg');
     buildings1 = await Flame.images.load('buildings1.png');
     bird = await Flame.images.load('bird.png');
+    birdFly1 = await Flame.images.load('bird_fly_1.png');
+    birdFly2 = await Flame.images.load('bird_fly_2.png');
+    birdFly3 = await Flame.images.load('bird_fly_3.png');
+    shadow = await Flame.images.load('shadow.png');
+    shadowAlternative = await Flame.images.load('shadow_alternative.png');
   }
 }
