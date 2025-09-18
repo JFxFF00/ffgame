@@ -36,20 +36,23 @@ class Level {
       case 2:
         return Level(challenges: [
           Filip2.crazyFrog(),
+          Filip2.runAndJump(),
         ]);
       case 3:
         return Level(challenges: [
           JhonChloo2.one(),
           JhonChloo2.two(),
           JhonChloo2.three(),
+          Filip3.speedRun(),
         ]);
       case 4:
         return Level(challenges: [
+          Filip4.dodgeAndCollect(),
           JhonChloo4.one(),
         ]);
       default:
         return Level(challenges: [
-          Filip1.jumpOverCars(),
+          Filip4.dodgeAndCollect(),
         ]);
     }
   }
