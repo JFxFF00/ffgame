@@ -11,6 +11,15 @@ abstract class JhonChloo {
     );
   }
 
+  static Challenge cash() {
+    return Challenge(
+      duration: 4,
+      elements: [
+        ChallengeElement.cash(Vector2(100, -100), amount: 4),
+      ],
+    );
+  }
+
   static Challenge one() {
     return Challenge(
       duration: 5.5,

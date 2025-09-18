@@ -10,6 +10,7 @@ class ImageHolder {
   late Image characterImage;
   late Image obstacleImage;
   late Image coinImage;
+  late Image cash;
   late Image leftPressed;
   late Image leftDefault;
   late Image rightPressed;
@@ -44,5 +45,6 @@ class ImageHolder {
     birdFly3 = await Flame.images.load('bird_fly_3.png');
     shadow = await Flame.images.load('shadow.png');
     shadowAlternative = await Flame.images.load('shadow_alternative.png');
+    cash = await Flame.images.load('cash.png');
   }
 }

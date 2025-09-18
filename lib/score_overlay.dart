@@ -160,7 +160,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Coins',
+                    'Money',
                     style: style,
                   ),
                   Text(
