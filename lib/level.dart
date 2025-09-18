@@ -57,9 +57,10 @@ class Level {
           Filip5.longJumpChallenge()
         ]);
       case 6:
-        return Level(challenges: [Filip6.speedRunWithCars()]);
+        return Level(
+            challenges: [Filip6.speedRunWithCars(), Filip6.mixedChallenge()]);
       default:
-        return Level(challenges: []);
+        return Level(challenges: [Filip6.mixedChallenge()]);
     }
   }
 }
