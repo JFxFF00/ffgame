@@ -187,9 +187,9 @@ abstract class JhonChloo4 {
         ChallengeElement.coin(Vector2(40, -320)),
         ChallengeElement.coin(Vector2(80, -300)),
         ChallengeElement.coin(Vector2(300, -280), amount: 2),
+        ChallengeElement.bird(Vector2(350, -310)),
         ChallengeElement.coin(Vector2(350, -310), amount: 2),
         ChallengeElement.coin(Vector2(400, -280), amount: 2),
-        ChallengeElement.bird(Vector2(300, -310)),
       ],
     );
   }

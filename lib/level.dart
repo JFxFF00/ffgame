@@ -66,7 +66,7 @@ class Level {
           JhonChloo5.one(),
         ]);
       default:
-        return Level(challenges: [Filip4.timeTrial()]);
+        return Level(challenges: [JhonChloo4.one()]);
     }
   }
 }

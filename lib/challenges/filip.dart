@@ -22,7 +22,7 @@ abstract class Filip2 {
     return Challenge(name: 'Crazy Frog', duration: 5, elements: [
       ChallengeElement.coin(Vector2(0, 0), amount: 7),
       ChallengeElement.obstacle(300, amount: 18, size: 0.3),
-      ChallengeElement.obstacle(600, size: 3),
+      ChallengeElement.obstacle(650, size: 3),
     ]);
   }
 
