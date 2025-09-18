@@ -3,13 +3,13 @@ import 'package:flame/components.dart';
 
 abstract class Filip1 {
   static Challenge coinCollector() {
-    return Challenge(name: 'Coin Collector', duration: 5, elements: [
+    return Challenge(name: 'Coin Collector', duration: 3, elements: [
       ChallengeElement.coin(Vector2(0, 0), amount: 20),
     ]);
   }
 
   static Challenge jumpOverCars() {
-    return Challenge(name: 'Jump Over Cars', duration: 5, elements: [
+    return Challenge(name: 'Jump Over Cars', duration: 4, elements: [
       ChallengeElement.obstacle(0, size: 1.2),
       ChallengeElement.obstacle(300, amount: 2),
       ChallengeElement.obstacle(600, amount: 3, size: 0.7),
