@@ -10,7 +10,6 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
           key: ComponentKey.named('obstacle_manager'),
         );
   double delay = 0;
-  bool hasSpawnedInitialChallenge = false;
 
   @override
   void update(double dt) {
@@ -19,11 +18,8 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
 
     delay -= dt;
     if (delay <= 0) {
-      if (hasSpawnedInitialChallenge) {
-        game.challengesCompleted++;
-      }
-
       int challengesToComplete = GameBalance.challengesToNextLevel;
+      game.challengesCompleted++;
 
       if (game.level == 1) {
         challengesToComplete = GameBalance.challengesOnLevel1;
@@ -42,12 +38,10 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
       }
       delay = challenge.duration;
       game.speed = level.speed * GameBalance.gameSpeed;
-      hasSpawnedInitialChallenge = true;
     }
   }
 
   void reset() {
     delay = 0;
-    hasSpawnedInitialChallenge = false;
   }
 }

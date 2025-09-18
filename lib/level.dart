@@ -74,7 +74,17 @@ class Level {
           JhonChloo5.one(),
         ]);
       default:
-        return Level(challenges: [JhonChloo4.one()]);
+        return Level(speed: 2.5, challenges: [
+          JhonChloo2.one(),
+          JhonChloo2.two(),
+          JhonChloo2.three(),
+          JhonChloo2.four(),
+          Filip3.speedRun(),
+          Filip3.birdChallenge(),
+          Filip6.speedRunWithCars(),
+          Filip6.mixedChallenge(),
+          JhonChloo5.one(),
+        ]);
     }
   }
 }
