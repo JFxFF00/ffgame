@@ -13,7 +13,7 @@ class Player extends SpriteComponent
           children: [CircleHitbox()],
         );
 
-  static const double movementSpeed = 300;
+  static const double movementSpeed = 350;
   static const double jumpForce = 600;
   static const double extraJumpJuice = 78000;
   static const double gravity = 5000;

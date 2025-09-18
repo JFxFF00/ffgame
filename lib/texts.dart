@@ -15,6 +15,12 @@ abstract class Texts {
       fontSize: 16,
     ),
   );
+  static TextRenderer monoWeak = TextPaint(
+    style: GoogleFonts.novaMono(
+      color: Colors.white60,
+      fontSize: 16,
+    ),
+  );
   static TextRenderer actualMono = TextPaint(
     style: GoogleFonts.notoSansMono(
       color: Colors.white,

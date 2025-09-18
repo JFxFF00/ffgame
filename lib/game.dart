@@ -18,6 +18,7 @@ class FFGame extends FlameGame
   TextComponent scoreText = TextComponent();
   TextComponent levelText = TextComponent();
   TextComponent levelProgressText = TextComponent();
+  TextComponent challengeNameText = TextComponent();
   TextComponent highScoreText = TextComponent(anchor: Anchor.centerLeft);
   FpsTextComponent fps = FpsTextComponent(
     anchor: Anchor.centerRight,
@@ -93,11 +94,13 @@ class FFGame extends FlameGame
     final levelTextPosition =
         Vector2(50, size.y - (size.y - groundYPosition) / 2);
 
-    levelText.position = levelTextPosition + Vector2(0, -40);
-    levelProgressText.position = levelTextPosition;
+    levelText.position = levelTextPosition + Vector2(0, -65);
+    levelProgressText.position = levelTextPosition + Vector2(0, -32);
+    challengeNameText.position = levelTextPosition;
     scoreText.position = levelTextPosition + Vector2(0, 50);
 
     levelText.textRenderer = Texts.mono;
+    challengeNameText.textRenderer = Texts.monoWeak;
     levelProgressText.textRenderer = Texts.actualMono;
     scoreText.textRenderer = Texts.monoSmall;
 
@@ -110,6 +113,7 @@ class FFGame extends FlameGame
     world.add(obstacleManager);
     world.add(scoreText);
     world.add(levelProgressText);
+    world.add(challengeNameText);
     world.add(levelText);
     world.add(fps);
 

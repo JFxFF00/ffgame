@@ -3,11 +3,9 @@ import 'dart:math';
 import 'package:ffgame/barrel.dart';
 
 class Level {
-  final String name;
   final List<Challenge> challenges;
 
   Level({
-    this.name = '',
     this.challenges = const [],
   });
 
@@ -29,21 +27,24 @@ class Level {
         return Level(challenges: [
           Filip1.coinCollector(),
           Filip1.jumpOverCars(),
+          JhonChloo0.one(),
+          JhonChloo0.two(),
         ]);
       case 2:
         return Level(challenges: [
           Filip2.crazyFrog(),
           Filip2.runAndJump(),
-          JhonChloo.one(),
-          JhonChloo.two(),
-          JhonChloo.three(),
-          JhonChloo.four(),
+          JhonChloo1.one(),
+          JhonChloo1.two(),
+          JhonChloo1.three(),
+          JhonChloo1.four(),
         ]);
       case 3:
         return Level(challenges: [
           JhonChloo2.one(),
           JhonChloo2.two(),
           JhonChloo2.three(),
+          JhonChloo2.four(),
           Filip3.speedRun(),
         ]);
       case 4:
@@ -57,8 +58,11 @@ class Level {
           Filip5.longJumpChallenge()
         ]);
       case 6:
-        return Level(
-            challenges: [Filip6.speedRunWithCars(), Filip6.mixedChallenge()]);
+        return Level(challenges: [
+          Filip6.speedRunWithCars(),
+          Filip6.mixedChallenge(),
+          JhonChloo5.one(),
+        ]);
       default:
         return Level(challenges: [Filip6.mixedChallenge()]);
     }

@@ -1,5 +1,6 @@
 import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 
 class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   ObstacleManager()
@@ -27,6 +28,12 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
       }
       final level = Level.fromInt(game.level);
       final challenge = level.spawnChallengesInto(game);
+      debugPrint('Challenge: ${challenge.name}');
+      if (challenge.name == null || challenge.name!.isEmpty) {
+        game.challengeNameText.text = '[Unknown]';
+      } else {
+        game.challengeNameText.text = challenge.name!;
+      }
       delay = challenge.duration;
       hasSpawnedInitialChallenge = true;
     }
