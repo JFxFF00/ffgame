@@ -9,10 +9,6 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
           key: ComponentKey.named('obstacle_manager'),
         );
   double delay = 0;
-
-  List<Obstacle> obstacles = [];
-  List<Coin> coins = [];
-
   bool hasSpawnedInitialChallenge = false;
 
   @override
@@ -37,6 +33,7 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
   }
 
   void reset() {
-    removeAll(children);
+    delay = 0;
+    hasSpawnedInitialChallenge = false;
   }
 }

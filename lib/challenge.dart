@@ -56,10 +56,11 @@ class ChallengeElement {
     );
   }
 
-  factory ChallengeElement.coin(Vector2 pos) {
+  factory ChallengeElement.coin(Vector2 pos, {int? amount}) {
     return ChallengeElement(
       ChallengeElementType.coin,
       Vector2(pos.x, FFGame.groundYPosition + pos.y),
+      amount: amount ?? 1,
     );
   }
 
