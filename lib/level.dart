@@ -25,41 +25,31 @@ class Level {
 
   factory Level.fromInt(int level) {
     switch (level) {
-      case 4:
-        return Level(challenges: [
-          JhonChloo4.one(),
-        ]);
-      case 3:
-        return Level(challenges: [
-          Filip.ultimateChallenge(),
-          Filip.mixedChallenge(),
-          Filip.jumpOverCars(),
-        ]);
-      case 2:
-        return Level(challenges: [
-          JhonChloo2.one(),
-          JhonChloo2.two(),
-          JhonChloo2.three(),
-          Filip.dodgeAndCollect(),
-        ]);
       case 1:
         return Level(challenges: [
-          Filip.crazyFrog(),
-          Filip.runAndJump(),
-          Filip.speedRun(),
-          Filip.coinCollector(),
-          Filip.speedRunWithCars(),
-          Filip.longJumpChallenge(),
+          Filip1.coinCollector(),
+          Filip1.jumpOverCars(),
           JhonChloo.one(),
           JhonChloo.two(),
           JhonChloo.three(),
         ]);
+      case 2:
+        return Level(challenges: [
+          Filip2.crazyFrog(),
+        ]);
+      case 3:
+        return Level(challenges: [
+          JhonChloo2.one(),
+          JhonChloo2.two(),
+          JhonChloo2.three(),
+        ]);
+      case 4:
+        return Level(challenges: [
+          JhonChloo4.one(),
+        ]);
       default:
         return Level(challenges: [
-          // JhonChloo2.one(),
-          // JhonChloo2.two(),
-          // JhonChloo2.three(),
-          JhonChloo4.one(),
+          Filip1.jumpOverCars(),
         ]);
     }
   }
