@@ -51,10 +51,10 @@ class Level {
           Filip4.dodgeAndCollect(),
           JhonChloo4.one(),
         ]);
+      case 5:
+        return Level(challenges: [Filip5.ultimateChallenge()]);
       default:
-        return Level(challenges: [
-          Filip4.dodgeAndCollect(),
-        ]);
+        return Level(challenges: []);
     }
   }
 }

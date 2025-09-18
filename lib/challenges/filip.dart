@@ -2,29 +2,6 @@ import 'package:ffgame/challenge.dart';
 import 'package:flame/components.dart';
 
 abstract class Filip {
-  static Challenge ultimateChallenge() {
-    return Challenge(duration: 5, elements: [
-      ChallengeElement.coin(Vector2(0, -60)),
-      ChallengeElement.coin(Vector2(20, -60)),
-      ChallengeElement.obstacle(100, size: 1),
-      ChallengeElement.coin(Vector2(120, -100)),
-      ChallengeElement.obstacle(200, size: 1),
-      ChallengeElement.coin(Vector2(220, -100)),
-      ChallengeElement.obstacle(300, size: 1),
-      ChallengeElement.coin(Vector2(320, -100)),
-      ChallengeElement.obstacle(400, size: 1),
-      ChallengeElement.coin(Vector2(420, -100)),
-      ChallengeElement.obstacle(550, amount: 2, size: 1.5),
-      ChallengeElement.coin(Vector2(570, -140)),
-      ChallengeElement.obstacle(700, size: 2),
-      ChallengeElement.coin(Vector2(720, -180)),
-      ChallengeElement.obstacle(850, amount: 3, size: 1),
-      ChallengeElement.coin(Vector2(870, -140)),
-      ChallengeElement.obstacle(1000, size: 2.5),
-      ChallengeElement.coin(Vector2(1020, -220)),
-    ]);
-  }
-
   static Challenge speedRunWithCars() {
     return Challenge(duration: 5, elements: [
       ChallengeElement.coin(Vector2(0, -60)),
@@ -156,6 +133,26 @@ abstract class Filip4 {
       ChallengeElement.obstacle(400),
       ChallengeElement.obstacle(600),
       ChallengeElement.bird(Vector2(600, -100)),
+    ]);
+  }
+}
+
+abstract class Filip5 {
+  static Challenge ultimateChallenge() {
+    return Challenge(name: 'Ultimate Challenge', duration: 7, elements: [
+      ChallengeElement.obstacle(0),
+      ChallengeElement.obstacle(150),
+      ChallengeElement.bird(Vector2(150, -100)),
+      ChallengeElement.cash(Vector2(200, -200)),
+      ChallengeElement.obstacle(300),
+      ChallengeElement.obstacle(450),
+      ChallengeElement.bird(Vector2(500, -100)),
+      ChallengeElement.cash(Vector2(550, -100)),
+      ChallengeElement.obstacle(600, amount: 2),
+      ChallengeElement.obstacle(750, size: 2),
+      ChallengeElement.obstacle(900, amount: 3),
+      ChallengeElement.obstacle(1050, size: 2.3),
+      ChallengeElement.cash(Vector2(1000, -300), amount: 3),
     ]);
   }
 }
