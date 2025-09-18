@@ -4,7 +4,6 @@ import 'package:ffgame/barrel.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/text.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 class Cash extends SpriteComponent

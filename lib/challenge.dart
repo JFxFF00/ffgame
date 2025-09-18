@@ -18,15 +18,16 @@ class Challenge {
   void spawnInto(FFGame game) {
     for (final element in elements) {
       double xPosition = element.position.x;
+      double startPosition = game.size.x + 120;
       for (var i = 0; i < element.amount; i++) {
-        final comp = element.createComponent();
-        comp.size *= element.size;
-        comp.position = Vector2(
-          element.position.x + game.size.x + xPosition,
+        final component = element.createComponent();
+        component.size *= element.size;
+        component.position = Vector2(
+          element.position.x + startPosition + xPosition,
           element.position.y,
         );
-        xPosition += comp.size.x;
-        game.world.add(comp);
+        xPosition += component.size.x;
+        game.world.add(component);
       }
     }
   }

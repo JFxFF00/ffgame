@@ -11,15 +11,6 @@ abstract class JhonChloo {
     );
   }
 
-  static Challenge cash() {
-    return Challenge(
-      duration: 4,
-      elements: [
-        ChallengeElement.cash(Vector2(100, -100), amount: 4),
-      ],
-    );
-  }
-
   static Challenge one() {
     return Challenge(
       duration: 5.5,
@@ -61,6 +52,21 @@ abstract class JhonChloo {
         ChallengeElement.coin(Vector2(250, -90)),
         ChallengeElement.obstacle(450, size: 1.5),
         ChallengeElement.obstacle(700, amount: 4, size: 0.9),
+      ],
+    );
+  }
+
+  static Challenge four() {
+    return Challenge(
+      duration: 4,
+      elements: [
+        ChallengeElement.obstacle(0, size: 1.5),
+        ChallengeElement.obstacle(230, amount: 4),
+        ChallengeElement.coin(Vector2(240, -200)),
+        ChallengeElement.coin(Vector2(280, -230)),
+        ChallengeElement.coin(Vector2(320, -200)),
+        ChallengeElement.obstacle(580, amount: 2, size: 1.3),
+        ChallengeElement.coin(Vector2(590, -325), amount: 2),
       ],
     );
   }
@@ -116,12 +122,12 @@ abstract class JhonChloo4 {
     return Challenge(
       duration: 4,
       elements: [
-        ChallengeElement.bird(Vector2(100, -100)),
-        ChallengeElement.bird(Vector2(200, -120)),
-        ChallengeElement.bird(Vector2(300, -80)),
-        ChallengeElement.bird(Vector2(400, -50)),
-        ChallengeElement.bird(Vector2(500, -10)),
-        ChallengeElement.bird(Vector2(600, -150)),
+        ChallengeElement.obstacle(50, amount: 3),
+        ChallengeElement.bird(Vector2(100, -350)),
+        ChallengeElement.bird(Vector2(200, -350)),
+        ChallengeElement.obstacle(400, size: 2),
+        ChallengeElement.bird(Vector2(550, -350)),
+        ChallengeElement.bird(Vector2(650, -350)),
         ChallengeElement.bird(Vector2(700, -100)),
       ],
     );

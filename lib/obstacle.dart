@@ -10,13 +10,15 @@ class Obstacle extends SpriteComponent
   Obstacle()
       : super(
           size: Vector2.all(64),
-          anchor: Anchor.bottomLeft,
+          anchor: Anchor.bottomCenter,
           children: [
             CircleHitbox(),
           ],
         );
 
   bool get shouldDie => absolutePosition.x < (-game.size.x / 2);
+  double _flipTimer = 0.0;
+  bool _flipped = false;
 
   @override
   FutureOr<void> onLoad() {
@@ -28,6 +30,14 @@ class Obstacle extends SpriteComponent
   void update(double dt) {
     super.update(dt);
     x -= game.speed * dt;
+
+    // Flip every 0.3 seconds
+    _flipTimer += dt;
+    if (_flipTimer >= 0.3) {
+      _flipped = !_flipped;
+      scale.x = _flipped ? -1.0 : 1.0;
+      _flipTimer = 0.0;
+    }
 
     if (shouldDie) die();
   }
