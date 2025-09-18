@@ -143,6 +143,7 @@ class FFGame extends FlameGame
     world.removeWhere((element) => element is Obstacle);
     world.removeWhere((element) => element is Coin);
     world.removeWhere((element) => element is Bird);
+    world.removeWhere((element) => element is Cash);
     player.position = playerStart;
     speed = GameBalance.gameSpeed;
     highScoreText.text =
