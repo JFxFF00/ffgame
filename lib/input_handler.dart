@@ -25,7 +25,7 @@ class InputHandler extends KeyboardListenerComponent
               return true;
             },
             LogicalKeyboardKey.keyR: (_) {
-              game.restart();
+              game.end().then((_) => game.start());
               return true;
             },
           },

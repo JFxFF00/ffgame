@@ -35,7 +35,6 @@ class Player extends SpriteComponent
   FutureOr<void> onLoad() {
     sprite = Sprite(game.imageHolder.characterImage);
     startYPos = position.y;
-    print(position);
     return super.onLoad();
   }
 

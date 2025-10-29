@@ -40,8 +40,23 @@ class ScoreManager {
     this.highScores = highScores;
   }
 
-  Future<void> addHighScore(HighScoreEntry entry) async {
-    highScores.add(entry);
+  Future<void> addHighScore(HighScoreEntry newEntry) async {
+    highScores.add(newEntry);
+    // Keep only the highest score for each name
+    final Map<String, HighScoreEntry> updatedEntries = {};
+    for (var entry in highScores) {
+      final entryExists = updatedEntries.containsKey(entry.name);
+      bool newScoreIsHigher = true;
+      if (entryExists) {
+        newScoreIsHigher = entry.score > updatedEntries[entry.name]!.score;
+      }
+      if (newScoreIsHigher) {
+        updatedEntries[entry.name] = entry;
+      }
+    }
+    highScores
+      ..clear()
+      ..addAll(updatedEntries.values);
     highScores.sort((a, b) => b.score.compareTo(a.score));
     if (highScores.length > 10) {
       highScores.removeAt(10);

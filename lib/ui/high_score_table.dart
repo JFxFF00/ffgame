@@ -17,7 +17,7 @@ class HighScoreTable extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        width: 240,
+        width: 280,
         margin: EdgeInsets.all(40),
         padding: EdgeInsets.all(20),
         decoration: _boxDecoration(),

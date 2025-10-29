@@ -61,7 +61,11 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           children: [
             Expanded(child: SizedBox()),
             Expanded(child: _runScore(widget.game)),
-            Expanded(child: HighScoreTable(game: widget.game)),
+            Expanded(
+              child: widget.game.challenge == null
+                  ? HighScoreTable(game: widget.game)
+                  : SizedBox(),
+            ),
           ],
         ),
       ),
@@ -160,67 +164,97 @@ class _ScoreOverlayState extends State<ScoreOverlay>
             ],
           ),
         ),
-        if (game.scoreManager.canSubmit)
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            width: width,
-            padding: EdgeInsets.all(20),
-            decoration: _boxDecoration(),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    focusNode: nameFocusNode,
-                    controller: nameController,
-                    style: GoogleFonts.notoSansMono(),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Name...',
-                      hintStyle: TextStyle(color: Colors.black45),
-                      fillColor: Colors.white,
-                      filled: true,
-                    ),
-                    onChanged: (value) {
-                      name = value;
-                    },
-                  ),
-                ),
-                SizedBox(width: 12),
-                SizedBox(
-                  width: 80,
-                  height: 46, // size of text field
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.inversePrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        game.scoreManager.canSubmit = false;
-                      });
-                      SharedPreferences.getInstance().then((preferences) async {
-                        await preferences.setString('name', name);
-                      });
-                      await game.scoreManager.addHighScore(
-                        HighScoreEntry(
-                          name: name,
-                          score: game.scoreManager.score,
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          width: width,
+          padding: EdgeInsets.all(20),
+          decoration: _boxDecoration(),
+          child: Column(
+            children: [
+              if (game.scoreManager.canSubmit)
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          focusNode: nameFocusNode,
+                          controller: nameController,
+                          style: GoogleFonts.notoSansMono(),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Name...',
+                            hintStyle: TextStyle(color: Colors.black45),
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          onChanged: (value) {
+                            name = value;
+                          },
                         ),
-                      );
-                      focusNode.requestFocus();
-                    },
-                    child: Text(
-                      'Submit',
-                      style: GoogleFonts.notoSansMono(),
-                    ),
+                      ),
+                      SizedBox(width: 12),
+                      SizedBox(
+                        width: 80,
+                        height: 46, // size of text field
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.inversePrimary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                          ),
+                          onPressed: () async {
+                            setState(() {
+                              game.scoreManager.canSubmit = false;
+                            });
+                            SharedPreferences.getInstance()
+                                .then((preferences) async {
+                              await preferences.setString('name', name);
+                            });
+                            await game.scoreManager.addHighScore(
+                              HighScoreEntry(
+                                name: name,
+                                score: game.scoreManager.score,
+                              ),
+                            );
+                            gameFocus.requestFocus();
+                          },
+                          child: Text(
+                            'Submit',
+                            style: GoogleFonts.notoSansMono(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              Container(
+                width: width,
+                height: 46,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    overlayColor: Colors.white,
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                      side: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  onPressed: () async {
+                    game.overlays.remove(ScoreOverlay.name);
+                    game.overlays.add(MainMenu.name);
+                  },
+                  child: Text(
+                    'Back to main menu',
+                    style: GoogleFonts.notoSansMono(color: Colors.white),
+                  ),
+                ),
+              )
+            ],
           ),
+        ),
         SizedBox(height: 8),
         AnimatedScale(
           scale: animationController?.value ?? 1,
@@ -267,7 +301,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
 
   void _handleFocus() {
     if (!nameFocusNode.hasFocus) {
-      focusNode.requestFocus();
+      gameFocus.requestFocus();
     }
   }
 }

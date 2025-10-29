@@ -91,7 +91,6 @@ class _MainMenuButtonState extends State<MainMenuButton>
                   final value = tween.value;
                   final size = 340.0;
                   final x = -size + value * size;
-                  print(value);
 
                   return Positioned(
                     left: x,

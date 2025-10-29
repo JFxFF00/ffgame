@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 /// This example simply adds a rotating white square on the screen.
 /// If you press on a square, it will be removed.
 /// If you press anywhere else, another square will be added.
-FocusNode focusNode = FocusNode();
+FocusNode gameFocus = FocusNode();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,7 +23,7 @@ void main() async {
       ),
       home: GameWidget(
         game: FFGame(),
-        focusNode: focusNode,
+        focusNode: gameFocus,
         initialActiveOverlays: [
           MainMenu.name,
         ],

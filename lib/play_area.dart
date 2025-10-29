@@ -11,7 +11,7 @@ class PlayArea extends RectangleComponent
     with TapCallbacks, HasGameReference<FFGame> {
   PlayArea()
       : super(
-          paint: Paint()..color = Color(0xFF0d091c),
+          paint: Paint()..color = Color(0xff123826),
           children: [RectangleHitbox()],
         );
 

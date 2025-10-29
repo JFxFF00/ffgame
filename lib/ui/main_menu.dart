@@ -1,7 +1,5 @@
 import 'package:ffgame/barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_html/html.dart' as html;
 
 class MainMenu extends StatefulWidget {
@@ -29,30 +27,6 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> with TickerProviderStateMixin {
   _State state = _State.main;
-  String name = '';
-  TextEditingController nameController = TextEditingController();
-  late SharedPreferences preferences;
-  AnimationController? animationController;
-  FocusNode nameFocusNode = FocusNode();
-
-  @override
-  void initState() {
-    animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 1000),
-      lowerBound: 1.0,
-      upperBound: 1.2,
-      animationBehavior: AnimationBehavior.preserve,
-    );
-    animationController?.repeat();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    animationController?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,7 @@ class FFGame extends FlameGame
 
   GameState gameState = GameState.playing;
   ImageHolder imageHolder = ImageHolder();
+  Challenge? challenge;
 
   TextComponent scoreText = TextComponent();
   TextComponent levelText = TextComponent();
@@ -60,6 +61,11 @@ class FFGame extends FlameGame
     inputHandler = InputHandler(this);
 
     setupPlayArea();
+
+    _checkForChallenge();
+    if (challenge != null) {
+      start();
+    }
 
     return super.onLoad();
   }
@@ -115,15 +121,25 @@ class FFGame extends FlameGame
   }
 
   void start() {
-    final href = html.window.location.href;
-    final challengeId = Uri.parse(href).queryParameters['id'] ?? '';
-    final challenge = Level.getChallengeFromId(challengeId);
-    print(challenge?.name);
-
+    _checkForChallenge();
+    duration = 0;
+    level = 1;
+    challengesCompleted = 0;
     obstacleManager = ObstacleManager(challenge: challenge);
+    scoreManager = ScoreManager();
+    scoreManager.canSubmit = challenge == null;
+    print(scoreManager.canSubmit);
+    speed = GameBalance.gameSpeed;
+    gameState = GameState.playing;
+    gameFocus.requestFocus();
 
-    overlays.remove(MainMenu.name);
+    SoundManager.playBackgroundMusic(this);
+    highScoreText.text =
+        'High Score: ${scoreWithTitle(scoreManager.highScore.score)}';
+
+    overlays.clear();
     scoreManager.newGame();
+    obstacleManager.reset();
     player.position = playerStart;
     world.add(obstacleManager);
     world.add(scoreText);
@@ -142,7 +158,11 @@ class FFGame extends FlameGame
     }
   }
 
-  void end() async {
+  Future<void> end() async {
+    if (gameState == GameState.scoreScreen) {
+      return;
+    }
+
     gameState = GameState.scoreScreen;
     speed = 0;
 
@@ -151,26 +171,23 @@ class FFGame extends FlameGame
     highScoreText.text = '';
     scoreText.text = '';
     await scoreManager.getHighScores();
-    scoreManager.canSubmit = true;
     scoreManager.showScores(this);
-  }
-
-  void restart() {
-    duration = 0;
-    level = 1;
-    challengesCompleted = 0;
-    scoreManager.newGame();
-    obstacleManager.reset();
+    world.remove(obstacleManager);
+    world.remove(scoreText);
+    world.remove(levelProgressText);
+    world.remove(challengeNameText);
+    world.remove(levelText);
+    world.remove(fps);
     world.removeWhere((element) => element is Obstacle);
     world.removeWhere((element) => element is Coin);
     world.removeWhere((element) => element is Bird);
     world.removeWhere((element) => element is Cash);
-    player.position = playerStart;
-    speed = GameBalance.gameSpeed;
-    highScoreText.text =
-        'High Score: ${scoreWithTitle(scoreManager.highScore.score)}';
-    gameState = GameState.playing;
-    scoreManager.hideScores(this);
-    SoundManager.playBackgroundMusic(this);
+  }
+
+  void _checkForChallenge() {
+    final href = html.window.location.href;
+    final challengeId = Uri.parse(href).queryParameters['id'] ?? '';
+    final challenge = Level.getChallengeFromId(challengeId);
+    this.challenge = challenge;
   }
 }
