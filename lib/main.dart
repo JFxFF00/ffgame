@@ -1,5 +1,4 @@
-import 'package:ffgame/game.dart';
-import 'package:ffgame/score_overlay.dart';
+import 'package:ffgame/barrel.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +24,13 @@ void main() async {
       home: GameWidget(
         game: FFGame(),
         focusNode: focusNode,
+        initialActiveOverlays: [
+          MainMenu.name,
+        ],
         overlayBuilderMap: {
+          MainMenu.name: (context, FFGame game) {
+            return MainMenu(game: game);
+          },
           ScoreOverlay.name: (context, FFGame game) {
             return ScoreOverlay(game: game);
           },
