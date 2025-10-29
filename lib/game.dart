@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:google_fonts/google_fonts.dart';
 
 class FFGame extends FlameGame
@@ -111,6 +112,19 @@ class FFGame extends FlameGame
     world.add(PlayArea());
     world.add(player);
     world.add(Shadow(player: player));
+  }
+
+  void start() {
+    final href = html.window.location.href;
+    final challengeId = Uri.parse(href).queryParameters['id'] ?? '';
+    final challenge = Level.getChallengeFromId(challengeId);
+    print(challenge?.name);
+
+    obstacleManager = ObstacleManager(challenge: challenge);
+
+    overlays.remove(MainMenu.name);
+    scoreManager.newGame();
+    player.position = playerStart;
     world.add(obstacleManager);
     world.add(scoreText);
     world.add(levelProgressText);
@@ -119,10 +133,12 @@ class FFGame extends FlameGame
     world.add(fps);
 
     if (!kIsWeb) {
-      world
-          .add(TapButtons.left(this)..position = bottomLeft + Vector2(60, -60));
       world.add(
-          TapButtons.right(this)..position = bottomLeft + Vector2(140, -60));
+        TapButtons.left(this)..position = bottomLeft + Vector2(60, -60),
+      );
+      world.add(
+        TapButtons.right(this)..position = bottomLeft + Vector2(140, -60),
+      );
     }
   }
 

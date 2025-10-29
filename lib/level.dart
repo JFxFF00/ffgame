@@ -11,6 +11,28 @@ class Level {
     this.speed = 1,
   });
 
+  static int totalLevels = 7;
+
+  static List<Level> getAllLevels() {
+    return List.generate(totalLevels + 1, (index) => Level.fromInt(index + 1));
+  }
+
+  static List<Challenge> getAllChallenges() {
+    List<Challenge> challenges = [];
+    for (var level in getAllLevels()) {
+      challenges.addAll(level.challenges);
+    }
+    return challenges;
+  }
+
+  static Challenge? getChallengeFromId(String id) {
+    final challenges = getAllChallenges();
+    if (challenges.any((challenge) => challenge.id == id)) {
+      return challenges.firstWhere((challenge) => challenge.id == id);
+    }
+    return null;
+  }
+
   /// Spawn all challenges into the world
   Challenge spawnChallengesInto(FFGame game) {
     if (challenges.isNotEmpty) {

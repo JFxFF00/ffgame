@@ -1,5 +1,6 @@
 import 'package:ffgame/barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScoreOverlay extends StatefulWidget {
@@ -60,7 +61,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           children: [
             Expanded(child: SizedBox()),
             Expanded(child: _runScore(widget.game)),
-            Expanded(child: _highScores(widget.game)),
+            Expanded(child: HighScoreTable(game: widget.game)),
           ],
         ),
       ),
@@ -74,65 +75,8 @@ class _ScoreOverlayState extends State<ScoreOverlay>
     );
   }
 
-  Widget _highScores(FFGame game) {
-    final TextStyle style = TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-    );
-    final highScores = game.scoreManager.highScores;
-
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        width: 240,
-        margin: EdgeInsets.all(40),
-        padding: EdgeInsets.all(20),
-        decoration: _boxDecoration(),
-        child: Column(
-          spacing: 4,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'High Scores',
-              style: style.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Divider(color: Colors.white54),
-            for (int index = 0; index < highScores.length; index++)
-              _score(highScores[index], index),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _score(HighScoreEntry entry, int index) {
-    TextStyle style = TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-    );
-    final placement = index + 1;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            '${placement}. ${entry.name}',
-            overflow: TextOverflow.fade,
-            maxLines: 1,
-            style: style,
-          ),
-        ),
-        Text('${entry.score.round()}', style: style),
-      ],
-    );
-  }
-
   Widget _runScore(FFGame game) {
-    TextStyle style = TextStyle(
+    TextStyle style = GoogleFonts.notoSansMono(
       fontSize: 20,
       color: Colors.white,
     );
@@ -156,6 +100,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                 style:
                     style.copyWith(fontSize: 32, fontWeight: FontWeight.bold),
               ),
+              Divider(color: Colors.white54),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -227,9 +172,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                   child: TextField(
                     focusNode: nameFocusNode,
                     controller: nameController,
-                    // style: TextStyle(
-                    //   color: Colors
-                    // ),
+                    style: GoogleFonts.notoSansMono(),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Name...',
@@ -245,10 +188,14 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                 SizedBox(width: 12),
                 SizedBox(
                   width: 80,
+                  height: 46, // size of text field
                   child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).colorScheme.inversePrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                      ),
                     ),
                     onPressed: () async {
                       setState(() {
@@ -265,7 +212,10 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                       );
                       focusNode.requestFocus();
                     },
-                    child: Text('Submit'),
+                    child: Text(
+                      'Submit',
+                      style: GoogleFonts.notoSansMono(),
+                    ),
                   ),
                 ),
               ],
@@ -277,7 +227,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           duration: Duration(milliseconds: 1000),
           child: Text(
             'Press "R" to restart',
-            style: TextStyle(color: Colors.white),
+            style: GoogleFonts.notoSansMono(color: Colors.white),
           ),
         ),
       ],

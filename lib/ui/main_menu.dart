@@ -2,6 +2,7 @@ import 'package:ffgame/barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_html/html.dart' as html;
 
 class MainMenu extends StatefulWidget {
   final FFGame game;
@@ -9,11 +10,25 @@ class MainMenu extends StatefulWidget {
 
   static const name = 'Main menu';
 
+  static void startGame(FFGame game, {String? challengeId}) {
+    if (challengeId == null) {
+      html.window.history.pushState(null, '', '/');
+    } else {
+      html.window.history.pushState(
+        null,
+        '',
+        'challenges?id=${challengeId}',
+      );
+    }
+    game.start();
+  }
+
   @override
   State<MainMenu> createState() => _MainMenuState();
 }
 
 class _MainMenuState extends State<MainMenu> with TickerProviderStateMixin {
+  _State state = _State.main;
   String name = '';
   TextEditingController nameController = TextEditingController();
   late SharedPreferences preferences;
@@ -47,76 +62,22 @@ class _MainMenuState extends State<MainMenu> with TickerProviderStateMixin {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: Colors.black.withAlpha(60),
-        child: Row(
-          children: [
-            Expanded(child: _menu(widget.game)),
-            Expanded(child: _highScores(widget.game)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  BoxDecoration _boxDecoration() {
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-      color: Colors.black.withAlpha(180),
-    );
-  }
-
-  Widget _highScores(FFGame game) {
-    final TextStyle style = TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-    );
-    final highScores = game.scoreManager.highScores;
-
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        width: 240,
-        margin: EdgeInsets.all(40),
-        padding: EdgeInsets.all(20),
-        decoration: _boxDecoration(),
-        child: Column(
-          spacing: 4,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'High Scores',
-              style: style.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+        child: switch (state) {
+          _State.main => _mainMenu(widget.game),
+          _State.levelSelect => LevelSelect(
+              game: widget.game,
+              onBack: () => setState(() => state = _State.main),
             ),
-            Divider(color: Colors.white54),
-            for (int index = 0; index < highScores.length; index++)
-              _score(highScores[index], index),
-          ],
-        ),
+        },
       ),
     );
   }
 
-  Widget _score(HighScoreEntry entry, int index) {
-    TextStyle style = TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-    );
-    final placement = index + 1;
-
+  Widget _mainMenu(FFGame game) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Text(
-            '${placement}. ${entry.name}',
-            overflow: TextOverflow.fade,
-            maxLines: 1,
-            style: style,
-          ),
-        ),
-        Text('${entry.score.round()}', style: style),
+        Expanded(child: _menu(widget.game)),
+        Expanded(child: HighScoreTable(game: widget.game)),
       ],
     );
   }
@@ -129,10 +90,31 @@ class _MainMenuState extends State<MainMenu> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 20,
         children: [
-          MainMenuButton(text: 'Play', onTap: () {}),
-          MainMenuButton(text: 'Level select', onTap: () {}),
+          Container(
+            width: 600,
+            padding: EdgeInsets.only(left: 8),
+            child: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          MainMenuButton(
+            text: 'Play',
+            onTap: () => MainMenu.startGame(game),
+          ),
+          MainMenuButton(
+            text: 'Level select',
+            onTap: () {
+              setState(() => state = _State.levelSelect);
+            },
+          ),
         ],
       ),
     );
   }
+}
+
+enum _State {
+  main,
+  levelSelect,
 }

@@ -3,7 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
-  ObstacleManager()
+  final Challenge? challenge;
+  ObstacleManager({this.challenge})
       : super(
           size: Vector2(0, 0),
           anchor: Anchor.bottomCenter,
@@ -28,8 +29,9 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
         game.level++;
         game.challengesCompleted = 1;
       }
+
       final level = Level.fromInt(game.level);
-      final challenge = level.spawnChallengesInto(game);
+      final challenge = spawnChallenge();
       debugPrint('Challenge: ${challenge.name}');
       if (challenge.name == null || challenge.name!.isEmpty) {
         game.challengeNameText.text = '[Unknown]';
@@ -39,6 +41,15 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
       delay = challenge.duration;
       game.speed = level.speed * GameBalance.gameSpeed;
     }
+  }
+
+  Challenge spawnChallenge() {
+    if (challenge != null) {
+      challenge!.spawnInto(game);
+      return challenge!;
+    }
+    final level = Level.fromInt(game.level);
+    return level.spawnChallengesInto(game);
   }
 
   void reset() {

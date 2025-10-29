@@ -14,6 +14,8 @@ class Challenge {
     this.name = '',
   });
 
+  String get id => name?.toLowerCase().replaceAll(' ', '-') ?? '';
+
   /// Example: spawn all elements into the world at their positions
   void spawnInto(FFGame game) {
     for (final element in elements) {
