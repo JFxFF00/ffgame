@@ -29,7 +29,12 @@ class FFGame extends FlameGame
   ObstacleManager obstacleManager = ObstacleManager();
   ScoreManager scoreManager = ScoreManager();
   double duration = 0;
-  double speed = GameBalance.gameSpeed;
+  double get speed {
+    return GameBalance.gameSpeed * speedFromTrack * speedFromLevel;
+  }
+
+  double speedFromTrack = 1;
+  double speedFromLevel = 1;
   int level = 1;
   int challengesCompleted = 0;
 
@@ -84,6 +89,14 @@ class FFGame extends FlameGame
       levelText.text = 'Level ${levelWithTitle(level)}';
       levelProgressText.text = '$challengeX$challengeO';
       scoreText.text = 'Score ${scoreManager.score.round()}';
+
+      if (speedFromTrack > 1) {
+        final deAcceleration = 0.6 * speedFromTrack * dt;
+        speedFromTrack -= deAcceleration;
+        if (speedFromTrack < 1) {
+          speedFromTrack = 1;
+        }
+      }
     }
     super.update(dt);
   }
@@ -129,7 +142,6 @@ class FFGame extends FlameGame
     scoreManager = ScoreManager();
     scoreManager.canSubmit = challenge == null;
     print(scoreManager.canSubmit);
-    speed = GameBalance.gameSpeed;
     gameState = GameState.playing;
     gameFocus.requestFocus();
 
@@ -164,7 +176,8 @@ class FFGame extends FlameGame
     }
 
     gameState = GameState.scoreScreen;
-    speed = 0;
+    speedFromLevel = 0;
+    speedFromTrack = 1;
 
     SoundManager.pauseBackgroundMusic();
 

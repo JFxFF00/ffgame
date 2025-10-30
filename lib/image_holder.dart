@@ -25,6 +25,11 @@ class ImageHolder {
   late Image buildings1;
   late Image shadow;
   late Image shadowAlternative;
+  late Image speedTrack1;
+  late Image speedTrack2;
+  late Image speedTrack3;
+  late Image speedTrack4;
+  late Image speedTrack5;
 
   Future<void> load() async {
     // characterImage = await Flame.images.load('ff_logga.png');
@@ -46,5 +51,10 @@ class ImageHolder {
     shadow = await Flame.images.load('shadow.png');
     shadowAlternative = await Flame.images.load('shadow_alternative.png');
     cash = await Flame.images.load('cash.png');
+    speedTrack1 = await Flame.images.load('speed_track-1.png');
+    speedTrack2 = await Flame.images.load('speed_track-2.png');
+    speedTrack3 = await Flame.images.load('speed_track-3.png');
+    speedTrack4 = await Flame.images.load('speed_track-4.png');
+    speedTrack5 = await Flame.images.load('speed_track-5.png');
   }
 }

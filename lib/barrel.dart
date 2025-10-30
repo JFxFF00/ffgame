@@ -24,6 +24,7 @@ export 'player.dart';
 export 'score_manager.dart';
 export 'shadow.dart';
 export 'sound_manager.dart';
+export 'speed_track.dart';
 export 'ui/high_score_table.dart';
 export 'ui/level_select.dart';
 export 'ui/main_menu_button.dart';

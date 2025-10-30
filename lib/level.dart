@@ -97,6 +97,7 @@ class Level {
         ]);
       default:
         return Level(speed: 2.5, challenges: [
+          JhonChlooWip.one(),
           JhonChloo2.one(),
           JhonChloo2.two(),
           JhonChloo2.three(),

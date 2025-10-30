@@ -39,7 +39,7 @@ class ObstacleManager extends PositionComponent with HasGameReference<FFGame> {
         game.challengeNameText.text = challenge.name!;
       }
       delay = challenge.duration;
-      game.speed = level.speed * GameBalance.gameSpeed;
+      game.speedFromLevel = level.speed;
     }
   }
 

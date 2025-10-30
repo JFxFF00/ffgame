@@ -78,6 +78,14 @@ class ChallengeElement {
     );
   }
 
+  factory ChallengeElement.speedBoost(double x, {int? amount}) {
+    return ChallengeElement(
+      ChallengeElementType.speedBoost,
+      Vector2(x, FFGame.groundYPosition),
+      amount: amount ?? 1,
+    );
+  }
+
   PositionComponent createComponent() {
     switch (type) {
       case ChallengeElementType.obstacle:
@@ -88,8 +96,10 @@ class ChallengeElement {
         return Cash();
       case ChallengeElementType.bird:
         return Bird();
+      case ChallengeElementType.speedBoost:
+        return SpeedTrack();
     }
   }
 }
 
-enum ChallengeElementType { obstacle, coin, bird, cash }
+enum ChallengeElementType { obstacle, coin, bird, cash, speedBoost }

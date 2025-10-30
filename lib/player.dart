@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:ffgame/barrel.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
+import 'package:flame/geometry.dart';
+import 'package:flame/particles.dart';
+import 'package:flutter/material.dart';
 
 class Player extends SpriteComponent
     with HasGameReference<FFGame>, CollisionCallbacks {

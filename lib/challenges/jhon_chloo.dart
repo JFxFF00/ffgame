@@ -1,6 +1,18 @@
 import 'package:ffgame/challenge.dart';
 import 'package:flame/components.dart';
 
+abstract class JhonChlooWip {
+  static Challenge one() {
+    return Challenge(
+      name: 'Speed Boost',
+      duration: 4,
+      elements: [
+        ChallengeElement.speedBoost(-100, amount: 2),
+      ],
+    );
+  }
+}
+
 abstract class JhonChloo0 {
   static Challenge one() {
     return Challenge(
