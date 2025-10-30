@@ -25,6 +25,11 @@ class Player extends SpriteComponent
   double _xVelocity = 0;
 
   double _rotationSpeed = 0;
+  double _juice = 0;
+  bool get isJuiced => _juice > 0;
+  bool isBlinking = false;
+  bool isBlinkingFast = false;
+  double blinkDelay = 0;
 
   double startYPos = 0;
   int framesPerJump = 0;
@@ -76,6 +81,30 @@ class Player extends SpriteComponent
 
     angle += radiansFromDegrees(_rotationSpeed);
 
+    if (blinkDelay > 0) {
+      blinkDelay -= dt;
+      if (blinkDelay <= 0) {
+        blink();
+      }
+    }
+
+    if (_juice > 0) {
+      _juice -= dt;
+      if (_juice > 0) {
+        if (_juice < 2 && !isBlinkingFast) {
+          isBlinkingFast = true;
+          isBlinking = false;
+          blink();
+        } else if (_juice < 4 && !isBlinking) {
+          isBlinking = true;
+          blink();
+        }
+      }
+      if (_juice <= 0) {
+        unJuice();
+      }
+    }
+
     super.update(dt);
   }
 
@@ -116,6 +145,9 @@ class Player extends SpriteComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+
+    if (isJuiced) return;
+
     if (other is Obstacle || other is Bird) {
       game.end();
     }
@@ -140,6 +172,36 @@ class Player extends SpriteComponent
     }
 
     angle += radiansFromDegrees(_rotationSpeed);
+  }
+
+  void juice() {
+    _juice = 7;
+    game.speedFromStar = 2;
+    sprite = Sprite(game.imageHolder.characterImageYellow);
+  }
+
+  void unJuice() {
+    sprite = Sprite(game.imageHolder.characterImage);
+    game.speedFromStar = 1;
+    _juice = 0;
+    isBlinkingFast = false;
+    isBlinking = false;
+  }
+
+  void blink() {
+    if (!isBlinkingFast && !isBlinking) return;
+
+    if (sprite?.image == game.imageHolder.characterImageYellow) {
+      sprite = Sprite(game.imageHolder.characterImage);
+      blinkDelay = 0.08;
+    } else {
+      sprite = Sprite(game.imageHolder.characterImageYellow);
+      if (isBlinkingFast) {
+        blinkDelay = 0.08;
+      } else {
+        blinkDelay = 0.3;
+      }
+    }
   }
 }
 

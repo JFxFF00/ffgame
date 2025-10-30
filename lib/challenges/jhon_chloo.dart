@@ -7,6 +7,7 @@ abstract class JhonChlooWip {
       name: 'Speed Boost',
       duration: 14,
       elements: [
+        ChallengeElement.starman(Vector2(0, 0)),
         ChallengeElement.speedBoost(100, amount: 2),
         ChallengeElement.obstacle(280, amount: 10),
         ChallengeElement.coin(Vector2(330, -280)),

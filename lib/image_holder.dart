@@ -8,6 +8,7 @@ import 'package:flame/image_composition.dart';
 // - assets/images/right_default.png
 class ImageHolder {
   late Image characterImage;
+  late Image characterImageYellow;
   late Image obstacleImage;
   late Image coinImage;
   late Image cash;
@@ -30,10 +31,13 @@ class ImageHolder {
   late Image speedTrack3;
   late Image speedTrack4;
   late Image speedTrack5;
+  late Image starman;
+  late Image starParticle;
 
   Future<void> load() async {
     // characterImage = await Flame.images.load('ff_logga.png');
     characterImage = await Flame.images.load('ff_ball.png');
+    characterImageYellow = await Flame.images.load('ff_ball_yellow.png');
     obstacleImage = await Flame.images.load('fire.png');
     coinImage = await Flame.images.load('coin.png');
     leftPressed = await Flame.images.load('left_pressed.png');
@@ -56,5 +60,7 @@ class ImageHolder {
     speedTrack3 = await Flame.images.load('speed_track-3.png');
     speedTrack4 = await Flame.images.load('speed_track-4.png');
     speedTrack5 = await Flame.images.load('speed_track-5.png');
+    starman = await Flame.images.load('starman.png');
+    starParticle = await Flame.images.load('star_particle.png');
   }
 }

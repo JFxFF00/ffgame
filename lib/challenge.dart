@@ -144,6 +144,15 @@ class ChallengeElement {
     );
   }
 
+  factory ChallengeElement.starman(
+    Vector2 pos,
+  ) {
+    return ChallengeElement(
+      ChallengeElementType.starman,
+      Vector2(pos.x, FFGame.groundYPosition + pos.y),
+    );
+  }
+
   PositionComponent createComponent() {
     switch (type) {
       case ChallengeElementType.obstacle:
@@ -156,8 +165,10 @@ class ChallengeElement {
         return Bird();
       case ChallengeElementType.speedBoost:
         return SpeedTrack();
+      case ChallengeElementType.starman:
+        return Starman();
     }
   }
 }
 
-enum ChallengeElementType { obstacle, coin, bird, cash, speedBoost }
+enum ChallengeElementType { obstacle, coin, bird, cash, speedBoost, starman }

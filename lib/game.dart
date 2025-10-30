@@ -30,11 +30,15 @@ class FFGame extends FlameGame
   ScoreManager scoreManager = ScoreManager();
   double duration = 0;
   double get speed {
-    return GameBalance.gameSpeed * speedFromTrack * speedFromLevel;
+    return GameBalance.gameSpeed *
+        speedFromTrack *
+        speedFromLevel *
+        speedFromStar;
   }
 
   double speedFromTrack = 1;
   double speedFromLevel = 1;
+  double speedFromStar = 1;
   int level = 1;
   int challengesCompleted = 0;
 
