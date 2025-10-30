@@ -48,6 +48,7 @@ class Level {
   static List<Challenge> getChallenges() {
     List<Challenge> challenges = [
       FilipChallenge.sockervadd(),
+      FilipChallenge.gullig(),
     ];
     return challenges;
   }

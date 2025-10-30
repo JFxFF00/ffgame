@@ -29,7 +29,7 @@ class Challenge {
                 startPosition +
                 i * component.size.x +
                 i * element.gap,
-            element.position.y - j * component.size.y - j * element.gap,
+            element.position.y - j * component.size.y - j * element.verticalGap,
           );
           game.world.add(component);
         }
@@ -45,6 +45,7 @@ class ChallengeElement {
   final int amount;
   final int verticalAmount;
   final double gap;
+  final double verticalGap;
 
   ChallengeElement(
     this.type,
@@ -53,22 +54,26 @@ class ChallengeElement {
     this.amount = 1,
     this.verticalAmount = 1,
     this.gap = 0,
+    this.verticalGap = 0,
   });
 
   factory ChallengeElement.obstacle(
     double x, {
+    double? y,
     double? size,
     int? amount,
     int? verticalAmount,
     double? gap,
+    double? verticalGap,
   }) {
     return ChallengeElement(
       ChallengeElementType.obstacle,
-      Vector2(x, FFGame.groundYPosition),
+      Vector2(x, FFGame.groundYPosition - (y ?? 0)),
       size: size ?? 1,
       amount: amount ?? 1,
       verticalAmount: verticalAmount ?? 1,
       gap: gap ?? 0,
+      verticalGap: verticalGap ?? 0,
     );
   }
 
@@ -77,6 +82,7 @@ class ChallengeElement {
     int? amount,
     int? verticalAmount,
     double? gap,
+    double? verticalGap,
   }) {
     return ChallengeElement(
       ChallengeElementType.coin,
@@ -84,6 +90,7 @@ class ChallengeElement {
       amount: amount ?? 1,
       verticalAmount: verticalAmount ?? 1,
       gap: gap ?? 0,
+      verticalGap: verticalGap ?? 0,
     );
   }
   factory ChallengeElement.cash(
@@ -91,6 +98,7 @@ class ChallengeElement {
     int? amount,
     int? verticalAmount,
     double? gap,
+    double? verticalGap,
   }) {
     return ChallengeElement(
       ChallengeElementType.cash,
@@ -98,6 +106,7 @@ class ChallengeElement {
       amount: amount ?? 1,
       verticalAmount: verticalAmount ?? 1,
       gap: gap ?? 0,
+      verticalGap: verticalGap ?? 0,
     );
   }
 
@@ -106,6 +115,7 @@ class ChallengeElement {
     int? amount,
     int? verticalAmount,
     double? gap,
+    double? verticalGap,
   }) {
     return ChallengeElement(
       ChallengeElementType.bird,
@@ -113,6 +123,7 @@ class ChallengeElement {
       amount: amount ?? 1,
       verticalAmount: verticalAmount ?? 1,
       gap: gap ?? 0,
+      verticalGap: verticalGap ?? 0,
     );
   }
 
@@ -121,6 +132,7 @@ class ChallengeElement {
     int? amount,
     int? verticalAmount,
     double? gap,
+    double? verticalGap,
   }) {
     return ChallengeElement(
       ChallengeElementType.speedBoost,
@@ -128,6 +140,7 @@ class ChallengeElement {
       amount: amount ?? 1,
       verticalAmount: verticalAmount ?? 1,
       gap: gap ?? 0,
+      verticalGap: verticalGap ?? 0,
     );
   }
 

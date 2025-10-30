@@ -189,4 +189,42 @@ abstract class FilipChallenge {
       ],
     );
   }
+
+  static Challenge gullig() {
+    return Challenge(
+      name: 'Gullig',
+      duration: 10,
+      elements: [
+        ChallengeElement.obstacle(
+          0,
+          amount: 5,
+          verticalAmount: 2,
+          gap: 300,
+          verticalGap: 200,
+        ),
+        ChallengeElement.obstacle(
+          0,
+          y: 125,
+          amount: 3,
+          gap: 664,
+        ),
+        ChallengeElement.coin(
+          Vector2(1600, -100),
+          verticalAmount: 5,
+        ),
+        ChallengeElement.cash(
+          Vector2(1600, -350),
+        ),
+        ChallengeElement.coin(Vector2(1800, 0), amount: 3),
+        ChallengeElement.speedBoost(2000, amount: 3),
+        ChallengeElement.obstacle(2400),
+        ChallengeElement.coin(Vector2(2600, 0), amount: 3),
+        ChallengeElement.speedBoost(2800, amount: 3),
+        ChallengeElement.obstacle(3200),
+        ChallengeElement.coin(Vector2(3400, 0), amount: 3),
+        ChallengeElement.speedBoost(3600, amount: 3),
+        ChallengeElement.obstacle(4000),
+      ],
+    );
+  }
 }
