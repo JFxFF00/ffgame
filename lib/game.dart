@@ -195,6 +195,7 @@ class FFGame extends FlameGame
     world.removeWhere((element) => element is Coin);
     world.removeWhere((element) => element is Bird);
     world.removeWhere((element) => element is Cash);
+    world.removeWhere((element) => element is SpeedTrack);
   }
 
   void _checkForChallenge() {

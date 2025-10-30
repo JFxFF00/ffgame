@@ -19,7 +19,7 @@ class Shadow extends SpriteComponent with HasGameReference<FFGame> {
   Vector2 originalSize = Vector2(84, 20);
 
   final particleComponent = ParticleSystemComponent();
-  double lifespan = 0;
+  double particleDelay = 0;
 
   @override
   FutureOr<void> onLoad() {
@@ -39,36 +39,48 @@ class Shadow extends SpriteComponent with HasGameReference<FFGame> {
     final double modifier2 = max(0.3, 1 - (distance / maxDistance));
     opacity = modifier;
     size = originalSize * modifier2;
-    if (lifespan > 0) {
-      lifespan -= dt;
+    if (particleDelay > 0) {
+      particleDelay -= dt;
     }
 
-    if (game.speedFromTrack > 1 && player.state.isGrounded) {
-      if (lifespan <= 0) {
-        particleComponent.particle = null;
+    // if (game.speedFromTrack > 1 && player.state.isGrounded) {
+    //   if (particleDelay <= 0) {
+    //     add(ParticleSystemComponent(
+    //       position: Vector2(38, 0),
+    //       particle: Particle.generate(
+    //         count: 12,
+    //         generator: (i) => AcceleratedParticle(
+    //           acceleration: Vector2(0.8, 0.8),
+    //           speed: getParticleSpeed(),
+    //           child: CircleParticle(
+    //             radius: randomFromRange(0.8, 1.7),
+    //             paint: Paint()..color = getParticleColor(),
+    //           ),
+    //           lifespan: 2,
+    //         ),
+    //       ),
+    //     ));
 
-        particleComponent.particle = Particle.generate(
-          count: 10,
-          generator: (i) => AcceleratedParticle(
-            acceleration: Vector2(0.5, 0.5),
-            speed: getParticleSpeed(),
-            child: CircleParticle(
-              radius: randomFromRange(0.1, 0.3),
-              paint: Paint()..color = Colors.red,
-            ),
-            lifespan: 2,
-          ),
-        );
-        lifespan = 0.5;
-      }
-    } else {
-      particleComponent.particle = null;
-    }
+    //     particleDelay = 0.3;
+    //   }
+    // } else {
+    //   removeWhere((child) => child is ParticleSystemComponent);
+    // }
   }
 
   Vector2 getParticleSpeed() {
-    final x = randomFromRange(-1, -40);
+    final x = randomFromRange(-100, -400);
     final y = randomFromRange(-1, -40);
     return Vector2(x, y);
+  }
+
+  Color getParticleColor() {
+    if (randomWithChance(0.33)) {
+      return Colors.yellow;
+    }
+    if (randomWithChance(0.33)) {
+      return Colors.white;
+    }
+    return Colors.red;
   }
 }
