@@ -175,3 +175,15 @@ abstract class Filip6 {
     ]);
   }
 }
+
+abstract class FilipChallenge {
+  static Challenge sockervadd() {
+    return Challenge(
+      name: 'Sockervadd',
+      duration: 20,
+      elements: [
+        ChallengeElement.cash(Vector2(0, 0), amount: 2),
+      ],
+    );
+  }
+}

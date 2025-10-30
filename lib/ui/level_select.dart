@@ -52,29 +52,27 @@ class LevelSelect extends StatelessWidget {
             child: Divider(height: 1, color: Colors.white),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: Level.getAllLevels().length,
-              padding: EdgeInsets.only(bottom: 100),
-              itemBuilder: (context, index) {
-                final level = Level.getAllLevels()[index].challenges;
-                String title = 'Level ${index + 1}';
-                if (index + 1 > Level.totalLevels) {
-                  title = 'Uncategorized levels';
-                }
-
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20),
-                      Text(title, style: style),
-                      SizedBox(height: 4),
-                      ...level.map(
-                        (challenge) => _challenge(challenge),
-                      ),
-                    ]);
-              },
-            ),
-          ),
+              child: ListView(
+            children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(height: 20),
+                Text('Challenges', style: style),
+                SizedBox(height: 4),
+                ...Level.getChallenges().map(
+                  (challenge) => _challenge(challenge),
+                ),
+              ]),
+              for (final (index, level) in Level.getAllLevels().indexed)
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  SizedBox(height: 20),
+                  Text('Level ${index + 1}', style: style),
+                  SizedBox(height: 4),
+                  ...level.challenges.map(
+                    (challenge) => _challenge(challenge),
+                  ),
+                ]),
+            ],
+          )),
         ],
       ),
     );

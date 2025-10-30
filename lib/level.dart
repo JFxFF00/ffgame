@@ -17,7 +17,7 @@ class Level {
     return List.generate(totalLevels + 1, (index) => Level.fromInt(index + 1));
   }
 
-  static List<Challenge> getAllChallenges() {
+  static List<Challenge> getAdventureChallenges() {
     List<Challenge> challenges = [];
     for (var level in getAllLevels()) {
       challenges.addAll(level.challenges);
@@ -26,7 +26,7 @@ class Level {
   }
 
   static Challenge? getChallengeFromId(String id) {
-    final challenges = getAllChallenges();
+    final challenges = getAdventureChallenges();
     if (challenges.any((challenge) => challenge.id == id)) {
       return challenges.firstWhere((challenge) => challenge.id == id);
     }
@@ -43,6 +43,13 @@ class Level {
       return challenges[randomIndex];
     }
     throw Exception('No challenges found');
+  }
+
+  static List<Challenge> getChallenges() {
+    List<Challenge> challenges = [
+      FilipChallenge.sockervadd(),
+    ];
+    return challenges;
   }
 
   factory Level.fromInt(int level) {
