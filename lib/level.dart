@@ -26,7 +26,7 @@ class Level {
   }
 
   static Challenge? getChallengeFromId(String id) {
-    final challenges = getAdventureChallenges();
+    final challenges = [...getAdventureChallenges(), ...getChallenges()];
     if (challenges.any((challenge) => challenge.id == id)) {
       return challenges.firstWhere((challenge) => challenge.id == id);
     }

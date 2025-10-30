@@ -61,6 +61,8 @@ class LevelSelect extends StatelessWidget {
                 ...Level.getChallenges().map(
                   (challenge) => _challenge(challenge),
                 ),
+                SizedBox(height: 40),
+                Text('Adventure training', style: style),
               ]),
               for (final (index, level) in Level.getAllLevels().indexed)
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

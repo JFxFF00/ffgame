@@ -90,7 +90,7 @@ class FFGame extends FlameGame
       levelProgressText.text = '$challengeX$challengeO';
       scoreText.text = 'Score ${scoreManager.score.round()}';
 
-      if (speedFromTrack > 1) {
+      if (speedFromTrack > 1 && player.state.isGrounded) {
         final deAcceleration = 0.6 * speedFromTrack * dt;
         speedFromTrack -= deAcceleration;
         if (speedFromTrack < 1) {

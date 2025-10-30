@@ -180,9 +180,12 @@ abstract class FilipChallenge {
   static Challenge sockervadd() {
     return Challenge(
       name: 'Sockervadd',
-      duration: 20,
+      duration: 10,
       elements: [
-        ChallengeElement.cash(Vector2(0, 0), amount: 2),
+        ChallengeElement.speedBoost(0, amount: 80),
+        ChallengeElement.obstacle(11000, amount: 36),
+        ChallengeElement.coin(Vector2(500, -100),
+            amount: 80, verticalAmount: 3, gap: 75),
       ],
     );
   }
