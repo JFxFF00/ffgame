@@ -1,7 +1,9 @@
 import 'package:ffgame/barrel.dart';
 import 'package:flame/game.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'firebase_options.dart';
 
 /// This example simply adds a rotating white square on the screen.
 /// If you press on a square, it will be removed.
@@ -9,6 +11,11 @@ import 'package:flutter/services.dart';
 FocusNode gameFocus = FocusNode();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Force Portrait Mode
   await SystemChrome.setPreferredOrientations([

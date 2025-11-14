@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "716830583516",
+    "project_id": "pig-space",
+    "storage_bucket": "pig-space.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716830583516:android:d8f8e6a3990fac30d4e219",
+        "android_client_info": {
+          "package_name": "com.example.flame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQHrC9NeQEi_M7ZdGNtz-LDLD1xodTTr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

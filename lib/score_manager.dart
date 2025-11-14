@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:ffgame/barrel.dart';
 import 'package:flame/components.dart';
-import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ScoreManager {
   List<HighScoreEntry> highScores = [];
@@ -29,15 +28,28 @@ class ScoreManager {
   }
 
   Future<void> getHighScores() async {
-    final response = await http.get(
-      Uri.parse('https://rpi.memention.net/doc/johans_highscore.json'),
-    );
+    final doc = await FirebaseFirestore.instance
+        .collection('frilansFlame')
+        .doc('mainHighscore')
+        .get();
 
-    final body = jsonDecode(response.body) as List<dynamic>;
-    final highScores = body.map((e) => HighScoreEntry.fromJson(e)).toList();
-    highScores.sort((a, b) => b.score.compareTo(a.score));
+    if (!doc.exists || doc.data() == null) {
+      highScores = [];
+      return;
+    }
 
-    this.highScores = highScores;
+    final scoresData = doc.data()!['scores'] as List<dynamic>?;
+    if (scoresData == null) {
+      highScores = [];
+      return;
+    }
+
+    final parsedScores = scoresData
+        .map((e) => HighScoreEntry.fromJson(e as Map<String, dynamic>))
+        .toList();
+    parsedScores.sort((a, b) => b.score.compareTo(a.score));
+
+    highScores = parsedScores;
   }
 
   Future<void> addHighScore(HighScoreEntry newEntry) async {
@@ -62,12 +74,13 @@ class ScoreManager {
       highScores.removeAt(10);
     }
 
-    final body = jsonEncode(highScores.map((e) => e.toJson()).toList());
+    final scoresList = highScores.map((e) => e.toJson()).toList();
 
-    await http.post(
-      Uri.parse('https://rpi.memention.net/doc/johans_highscore.json'),
-      body: body,
-    );
+    await FirebaseFirestore.instance
+        .collection('frilansFlame')
+        .doc('mainHighscore')
+        .set({'scores': scoresList}, SetOptions(merge: true));
+
     await getHighScores();
   }
 
