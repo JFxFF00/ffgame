@@ -27,12 +27,6 @@ class PlayArea extends RectangleComponent
       yPosition: 0,
     ));
     add(ParallaxController(
-      eachSize: Vector2(400, 200),
-      sprite: Sprite(game.imageHolder.buildings1),
-      speed: 0.04,
-      yPosition: FFGame.groundYPosition - 200,
-    ));
-    add(ParallaxController(
       eachSize: Vector2(FFGame.groundYPosition * 2, FFGame.groundYPosition),
       sprite: Sprite(game.imageHolder.sky),
       speed: 0.005,

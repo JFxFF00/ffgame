@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ScoreOverlay extends StatefulWidget {
   final FFGame game;
+
   const ScoreOverlay({super.key, required this.game});
 
   static const name = 'Score summary';
@@ -61,11 +62,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
           children: [
             Expanded(child: SizedBox()),
             Expanded(child: _runScore(widget.game)),
-            Expanded(
-              child: widget.game.challenge == null
-                  ? HighScoreTable(game: widget.game)
-                  : SizedBox(),
-            ),
+            Expanded(child: HighScoreTable(game: widget.game)),
           ],
         ),
       ),
@@ -218,6 +215,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                                 name: name,
                                 score: game.scoreManager.score,
                               ),
+                              game,
                             );
                             gameFocus.requestFocus();
                           },
@@ -242,7 +240,7 @@ class _ScoreOverlayState extends State<ScoreOverlay>
                       side: BorderSide(color: Colors.white),
                     ),
                   ),
-                  onPressed: () async {
+                  onPressed: () {
                     game.overlays.remove(ScoreOverlay.name);
                     game.overlays.add(MainMenu.name);
                   },

@@ -58,7 +58,7 @@ class FFGame extends FlameGame
   @override
   FutureOr<void> onLoad() async {
     await imageHolder.load();
-    await scoreManager.getHighScores();
+    await scoreManager.getHighScores(this);
     await GoogleFonts.pendingFonts([
       GoogleFonts.novaMono(),
       GoogleFonts.notoSansMono(),
@@ -144,8 +144,7 @@ class FFGame extends FlameGame
     challengesCompleted = 0;
     obstacleManager = ObstacleManager(challenge: challenge);
     scoreManager = ScoreManager();
-    scoreManager.canSubmit = challenge == null;
-    print(scoreManager.canSubmit);
+    scoreManager.canSubmit = true;
     gameState = GameState.playing;
     gameFocus.requestFocus();
 
@@ -187,7 +186,7 @@ class FFGame extends FlameGame
 
     highScoreText.text = '';
     scoreText.text = '';
-    await scoreManager.getHighScores();
+    await scoreManager.getHighScores(this);
     scoreManager.showScores(this);
     world.remove(obstacleManager);
     world.remove(scoreText);
@@ -195,11 +194,10 @@ class FFGame extends FlameGame
     world.remove(challengeNameText);
     world.remove(levelText);
     world.remove(fps);
-    world.removeWhere((element) => element is Obstacle);
-    world.removeWhere((element) => element is Coin);
-    world.removeWhere((element) => element is Bird);
-    world.removeWhere((element) => element is Cash);
-    world.removeWhere((element) => element is SpeedTrack);
+    final objectClasses = [Obstacle, Coin, Bird, Cash, SpeedTrack, Starman];
+    for (final objectClass in objectClasses) {
+      world.removeWhere((element) => element.runtimeType == objectClass);
+    }
   }
 
   void _checkForChallenge() {

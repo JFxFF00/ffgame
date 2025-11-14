@@ -27,10 +27,15 @@ class ScoreManager {
     scoreFromDistance = 0;
   }
 
-  Future<void> getHighScores() async {
+  Future<void> getHighScores(FFGame game) async {
+    final challenge = game.challenge;
+    String docName = 'mainHighscore';
+    if (challenge != null) {
+      docName = 'challenge-${challenge.id}';
+    }
     final doc = await FirebaseFirestore.instance
         .collection('frilansFlame')
-        .doc('mainHighscore')
+        .doc(docName)
         .get();
 
     if (!doc.exists || doc.data() == null) {
@@ -52,7 +57,12 @@ class ScoreManager {
     highScores = parsedScores;
   }
 
-  Future<void> addHighScore(HighScoreEntry newEntry) async {
+  Future<void> addHighScore(HighScoreEntry newEntry, FFGame game) async {
+    final challenge = game.challenge;
+    String docName = 'mainHighscore';
+    if (challenge != null) {
+      docName = 'challenge-${challenge.id}';
+    }
     highScores.add(newEntry);
     // Keep only the highest score for each name
     final Map<String, HighScoreEntry> updatedEntries = {};
@@ -78,10 +88,10 @@ class ScoreManager {
 
     await FirebaseFirestore.instance
         .collection('frilansFlame')
-        .doc('mainHighscore')
+        .doc(docName)
         .set({'scores': scoresList}, SetOptions(merge: true));
 
-    await getHighScores();
+    await getHighScores(game);
   }
 
   void showScores(FFGame game) {
